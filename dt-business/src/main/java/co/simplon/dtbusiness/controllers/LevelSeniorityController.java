@@ -11,7 +11,7 @@ import java.util.List;
 
 @RequestMapping("/levels")
 @RestController
-public class LevelSeniority {
+public class LevelSeniorityController {
 
     private LevelSeniorityService levelSeniorityService;
 
@@ -19,9 +19,9 @@ public class LevelSeniority {
         this.levelSeniorityService = levelSeniorityService;
     }
 
-    @GetMapping("/")
-    public ResponseEntity<List<LevelSeniorityView>> getLevels() {
+    @GetMapping
+    public List<LevelSeniorityView>getLevels() {
         List<LevelSeniorityView> levels = levelSeniorityService.getAllLevels();
-        return new ResponseEntity<List<LevelSeniorityView>>(levels);
+        return levels;
     }
 }
