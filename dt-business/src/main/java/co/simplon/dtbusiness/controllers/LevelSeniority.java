@@ -15,6 +15,10 @@ public class LevelSeniority {
 
     private LevelSeniorityService levelSeniorityService;
 
+    public LevelSeniorityController(LevelSeniorityService levelSeniorityService) {
+        this.levelSeniorityService = levelSeniorityService;
+    }
+
     @GetMapping("/")
     public ResponseEntity<List<LevelSeniorityView>> getLevels() {
         List<LevelSeniorityView> levels = levelSeniorityService.getAllLevels();
