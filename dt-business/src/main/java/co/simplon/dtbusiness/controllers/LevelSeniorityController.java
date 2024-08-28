@@ -15,7 +15,11 @@ public class LevelSeniorityController {
 
     private LevelSeniorityService levelSeniorityService;
 
-    @GetMapping("/")
+    public LevelSeniorityController(LevelSeniorityService levelSeniorityService) {
+        this.levelSeniorityService = levelSeniorityService;
+    }
+
+    @GetMapping
     public List<LevelSeniorityView>getLevels() {
         List<LevelSeniorityView> levels = levelSeniorityService.getAllLevels();
         return levels;
