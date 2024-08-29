@@ -1,18 +1,15 @@
 package co.simplon.dtbusiness.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
+import java.util.Set;
 
 @Entity
-@Table(name = "t_profiles")
-public class ProfileEntity {
+@Table(name = "t_developers")
+public class Developer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_profile")
+    @Column(name = "id_developer")
     private Long id;
 
     @Column(name = "internal_number")
@@ -36,7 +33,12 @@ public class ProfileEntity {
     @Column(name = "linkedin")
     private String linledin;
 
-    public ProfileEntity() {
+    @OneToMany(targetEntity = Skill.class, mappedBy = "developer")
+    private Set<Skill> skillProficiencies;
+
+
+
+    public Developer() {
 	// Default for ORM
     }
 
@@ -104,4 +106,11 @@ public class ProfileEntity {
 	this.linledin = linledin;
     }
 
+    public Set<Skill> getSkillProficiencies() {
+        return skillProficiencies;
+    }
+
+    public void setSkillProficiencies(Set<Skill> skillProficiencies) {
+        this.skillProficiencies = skillProficiencies;
+    }
 }

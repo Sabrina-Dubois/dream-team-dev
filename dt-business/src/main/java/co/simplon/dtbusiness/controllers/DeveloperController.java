@@ -7,25 +7,25 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import co.simplon.dtbusiness.entities.ProfileEntity;
-import co.simplon.dtbusiness.services.ProfilesService;
+import co.simplon.dtbusiness.entities.Developer;
+import co.simplon.dtbusiness.services.DeveloperService;
 
 @RequestMapping("/profiles")
 @RestController
-public class ProfilesController {
-    private ProfilesService service;
+public class DeveloperController {
+    private DeveloperService service;
 
-    public ProfilesController(ProfilesService service) {
+    public DeveloperController(DeveloperService service) {
 	this.service = service;
     }
 
     @GetMapping
-    public List<ProfileEntity> findAll() {
+    public List<Developer> findAll() {
 	return service.findAll();
     }
 
     @GetMapping("/{internalNumber}")
-    public ProfileEntity findByInternalNumber(@PathVariable final String internalNumber) {
+    public Developer findByInternalNumber(@PathVariable final String internalNumber) {
 	return service.findByInternalNumber(internalNumber);
     }
 }

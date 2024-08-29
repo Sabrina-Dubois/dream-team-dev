@@ -3,14 +3,17 @@ package co.simplon.dtbusiness.entities;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name="t_level_seniority")
-public class LevelSeniority {
+@Table(name="t_topics")
+public class Topic {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id_level")
+    @Column(name="id_skill")
     private Long id;
 
-    @Column(name="level_name")
+    @Column(name="skill_name")
     private String name;
+
+    @Column(name="is_technical_skill")
+    private String isTechnical;
 
 }
