@@ -1,4 +1,4 @@
 package co.simplon.dtbusiness.dtos.in;
 
-public record TopicCreateOrAdd(Long id, String name,boolean isTechnical) {
+public record SkillCreateOrAdd(Long id, String name, boolean isTechnical,Long level) {
 }
