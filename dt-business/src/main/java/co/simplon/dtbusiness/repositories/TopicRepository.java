@@ -10,4 +10,6 @@ import java.util.List;
 @Repository
 public interface TopicRepository extends JpaRepository<Topic, Long> {
     List<TopicView> findProjectedByNameAndIsTechnical(String name, boolean isTechnical);
+
+    Topic findByName(String name);
 }
