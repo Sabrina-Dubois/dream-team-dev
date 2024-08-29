@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import co.simplon.dtbusiness.dtos.out.DeveloperView;
 import co.simplon.dtbusiness.entities.Developer;
 import co.simplon.dtbusiness.repositories.DeveloperRepository;
 
@@ -16,17 +17,23 @@ public class DeveloperServiceImpl implements DeveloperService {
     }
 
     @Override
-    public List<Developer> findAll() {
-	return repos.findAll();
+    public List<DeveloperView> findAll() {
+	final List<Developer> devs = repos.findAll();
+	return getDeveloperViews(devs);
     }
 
     @Override
-    public Developer findByInternalNumber(final String internalNumber) {
-	return repos.findByInternalNumber(internalNumber);
-//	final var profileEntity = repos.findByInternalNumber(internalNumber);
-	// final var profile = new ProfileView(profileEntity., internalNumber,
-	// internalNumber, internalNumber, internalNumber, internalNumber,
-	// internalNumber);
-
+    public DeveloperView findProjectedByInternalNumber(final String internalNumber) {
+	final Developer dev = repos.findProjectedByInternalNumber(internalNumber);
+	return getDeveloperView(dev);
     }
+
+    private static List<DeveloperView> getDeveloperViews(final List<Developer> devs) {
+	return devs.stream().map(e -> getDeveloperView(e)).toList();
+    }
+
+    private static DeveloperView getDeveloperView(Developer e) {
+	return new DeveloperView(e.getInternalNumber(), e.getFirstName(), e.getLastName(), e.getEmail(),
+		e.getDescription(), e.getPicture(), e.getLinledin());
+    };
 }

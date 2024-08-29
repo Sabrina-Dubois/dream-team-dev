@@ -2,11 +2,11 @@ package co.simplon.dtbusiness.services;
 
 import java.util.List;
 
-import co.simplon.dtbusiness.entities.Developer;
+import co.simplon.dtbusiness.dtos.out.DeveloperView;
 
 public interface DeveloperService {
-    Developer findByInternalNumber(String internalNumber);
+    DeveloperView findProjectedByInternalNumber(String internalNumber);
 
-    List<Developer> findAll();
+    List<DeveloperView> findAll();
 
 }
