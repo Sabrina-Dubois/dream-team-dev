@@ -33,10 +33,10 @@
 				</datalist>
 				
 				<select v-model="newLevel" class="form-select col-3" aria-label="Select level">
-					<option selected disabled>Level</option>
-					<option value="junior">{{ $t('Junior') }}</option>
-					<option value="senior">{{ $t('Senior') }}</option>
-					<option value="expert">{{ $t('Expert') }}</option>
+					<option selected >Level</option>
+					<option v-for="(level,index) in levels"
+					:key="index"
+					>{{ $t(level.name) }}</option>
 				</select>
 
 				<!-- Add new skill -->
@@ -58,7 +58,11 @@ export default {
 			selectedSkills: [],
 			newSkill: '', 
 			newLevel: '', 
+			levels: []
 		};
+	},
+	mounted() {
+		this.getLevels()
 	},
 	methods: {
 		// Function 
@@ -75,7 +79,19 @@ export default {
 		// Remove a skill
 		removeSkill(index) {
 			this.selectedSkills.splice(index, 1);
+		},
+		async getLevels() {
+			try {
+				const response = await fetch(`http://localhost:8080/levels`)
+				const data = await response.json()
+				this.levels = data
+				console.log(this.levels)
+				
+			} catch {
+
+			}
 		}
+
 	}
 };
 </script>
