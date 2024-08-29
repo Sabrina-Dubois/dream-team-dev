@@ -1,15 +1,21 @@
 package co.simplon.dtbusiness.entities;
 
-import jakarta.persistence.*;
-
 import java.util.Set;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "t_developers")
 public class Developer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_developer")
+    @Column(name = "id_dev")
     private Long id;
 
     @Column(name = "internal_number")
@@ -35,8 +41,6 @@ public class Developer {
 
     @OneToMany(targetEntity = Skill.class, mappedBy = "developer")
     private Set<Skill> skillProficiencies;
-
-
 
     public Developer() {
 	// Default for ORM
@@ -107,10 +111,10 @@ public class Developer {
     }
 
     public Set<Skill> getSkillProficiencies() {
-        return skillProficiencies;
+	return skillProficiencies;
     }
 
     public void setSkillProficiencies(Set<Skill> skillProficiencies) {
-        this.skillProficiencies = skillProficiencies;
+	this.skillProficiencies = skillProficiencies;
     }
 }

@@ -8,5 +8,5 @@ import co.simplon.dtbusiness.entities.Developer;
 @Repository
 public interface DeveloperRepository extends JpaRepository<Developer, Long> {
 
-    Developer findByInternalNumber(String internalNumber);
+    Developer findProjectedByInternalNumber(String internalNumber);
 }

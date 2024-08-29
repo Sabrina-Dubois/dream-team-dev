@@ -18,7 +18,7 @@ INSERT INTO t_topics (skill_name, is_technical_skill ) VALUES
 	('Java', true),
 	('TeamWork', false);
 
-INSERT INTO t_skills(dev_id, topic_id, level_id ) VALUES
+INSERT INTO t_skills(dev_id, topic_id, level_id ) VALUES 
 	(1,1,2),
 (1,2, null);
 

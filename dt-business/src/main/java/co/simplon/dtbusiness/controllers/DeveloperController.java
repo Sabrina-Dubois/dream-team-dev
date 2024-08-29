@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import co.simplon.dtbusiness.entities.Developer;
+import co.simplon.dtbusiness.dtos.out.DeveloperView;
 import co.simplon.dtbusiness.services.DeveloperService;
 
-@RequestMapping("/profiles")
+@RequestMapping("/developers")
 @RestController
 public class DeveloperController {
     private DeveloperService service;
@@ -20,12 +20,12 @@ public class DeveloperController {
     }
 
     @GetMapping
-    public List<Developer> findAll() {
+    public List<DeveloperView> findAll() {
 	return service.findAll();
     }
 
     @GetMapping("/{internalNumber}")
-    public Developer findByInternalNumber(@PathVariable final String internalNumber) {
-	return service.findByInternalNumber(internalNumber);
+    public DeveloperView findByInternalNumber(@PathVariable final String internalNumber) {
+	return service.findProjectedByInternalNumber(internalNumber);
     }
 }
