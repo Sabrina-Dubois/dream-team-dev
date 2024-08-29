@@ -1,7 +1,9 @@
 package co.simplon.dtbusiness.controllers;
 
 import co.simplon.dtbusiness.dtos.out.LevelView;
+import co.simplon.dtbusiness.dtos.out.TopicView;
 import co.simplon.dtbusiness.services.LevelService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,8 +21,8 @@ public class LevelController {
     }
 
     @GetMapping
-    public List<LevelView>getLevels() {
+    public ResponseEntity<List<LevelView>>getLevels() {
         List<LevelView> levels = levelService.getAllLevels();
-        return levels;
+        return ResponseEntity.ok().body(levels);
     }
 }
