@@ -80,4 +80,3 @@ target/
 **/*.sw?
 
 **/*.tsbuildinfo
-**/application.properties
