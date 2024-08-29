@@ -1,51 +1,100 @@
 <template>
 	<main>
 		<div class="container mt-5">
-			<h1 class="text-center">Profil</h1>
+			<h1 class="text-center">{{ $t('Profil') }}</h1>
 
+			<!-- Informations personnelles -->
 			<div>
-				<label for="personalInfo" class="form-label fs-5">Informations personnelles</label>
-				<div class="d-flex flex-column align-items-center mt-4 card bg-light">
+				<label for="personalInfo" class="form-label fs-5">{{
+					$t('Informations personnelles')
+				}}</label>
+				<div class="d-flex flex-row align-items-start mt-4 card bg-light p-4">
+					<!-- Picture and File input  -->
+					<div class="d-flex flex-column align-items-center mx-3">
+						<!-- Picture -->
+						<div v-if="imageUrl" class="profile-picture-preview mb-2">
+							<img :src="imageUrl" alt="Profile" class="rounded-circle img-fluid" />
+						</div>
 
-					<!-- Picture -->
-					<div v-if="imageUrl" class="profile-picture-preview mb-3">
-						<img :src="imageUrl" alt="Profile" class="rounded-circle img-fluid" />
+						<div class="mb-2">
+							<input
+								class="form-control form-control-sm"
+								type="file"
+								@change="onFileChange"
+								accept="image/*"
+							/>
+						</div>
 					</div>
 
-					<!-- File input -->
-					<div class="mb-3">
-						<input type="file" @change="onFileChange" class="form-control" accept="image/*" />
+					<!-- Input fields -->
+					<div>
+						<div class="row">
+							<div class="col">
+								<input
+									type="text"
+									class="form-control mb-3"
+									placeholder="Nom"
+									v-model="user.nom"
+									@input="fetchData"
+								/>
+							</div>
+							<div class="col">
+								<input
+									type="text"
+									class="form-control mb-3"
+									placeholder="Prénom"
+									v-model="user.prenom"
+									@input="fetchData"
+								/>
+							</div>
+							<div class="col">
+								<input
+									type="email"
+									class="form-control mb-3"
+									placeholder="Email"
+									v-model="user.email"
+									@input="fetchData"
+								/>
+							</div>
+							<div class="col">
+								<input
+									type="text"
+									class="form-control mb-3"
+									placeholder="Matricule"
+									v-model="user.matricule"
+									@input="fetchData"
+								/>
+							</div>
+							<div class="col">
+								<a class="btn btn-primary" href="https://www.linkedin.com" target="_blank">
+									<i class="fab fa-linkedin"></i>
+								</a>
+							</div>
+						</div>
 					</div>
 				</div>
 
-				<label for="description" class="form-label fs-5 mb-2 mt-4">Description</label>
+				<!-- Description -->
+				<label for="description" class="form-label fs-5 mb-2 mt-4">{{ $t('Description') }}</label>
 				<div class="card bg-light">
 					<div class="card-body d-flex flex-column">
-						<div class="mb-3">
-							<a class="btn btn-primary" href="https://www.linkedin.com" target="_blank">
-								<i class="fab fa-linkedin"></i>
-							</a>
-						</div>
 						<textarea class="form-control" id="floatingTextarea2" style="height: 100px"></textarea>
 					</div>
 				</div>
 
-				<Skills />
+				<TechnicalSkills />
+				<SoftSkills />
 
-				<label for="Softskills" class="form-label fs-5 mb-2 mt-4">Soft Skills</label>
+				<!-- <label for="Softskills" class="form-label fs-5 mb-2 mt-4">{{ $t('Soft Skills') }}</label>
 				<div class="card bg-light">
 					<div class="card-body d-flex flex-column">
 						<input class="form-control" list="datalistSoftSkills" id="exampleDataList" />
-						<datalist id="datalistSoftSkills">
-							<option value="TRAVAIL EN EQUIPE"></option>
-							<option value="CURIEUX"></option>
-							<option value="PATIENT"></option>
-						</datalist>
+						
 					</div>
-				</div>
+				</div> -->
 
 				<div class="d-flex justify-content-center mt-3">
-					<button class="btn btn-primary">VALIDER</button>
+					<button class="btn btn-primary">{{ $t('ENVOYER') }}</button>
 				</div>
 			</div>
 		</div>
@@ -53,16 +102,25 @@
 </template>
 
 <script >
-import Skills from '@/components/Skills.vue'
+import TechnicalSkills from '@/components/TechnicalSkills.vue';
+import SoftSkills from '@/components/SoftSkills.vue';
 
 export default {
 	name: 'ProfilView',
 	components: {
-		Skills
+		TechnicalSkills,
+		SoftSkills
 	},
 	data() {
 		return {
-			imageUrl: null 
+			imageUrl: null,
+			imageUrl: null,
+			user: {
+				nom: '',
+				prenom: '',
+				email: '',
+				matricule: ''
+			}
 		}
 	},
 	methods: {
@@ -71,13 +129,16 @@ export default {
 			if (file) {
 				this.imageUrl = URL.createObjectURL(file)
 			}
+		},
+		fetchData() {
+			// Logique pour récupérer les données en fonction des champs de saisie
+			console.log('Fetching data from backend', this.user)
 		}
 	}
 }
 </script>
 
 <style scoped>
-/* Circular image */
 .profile-picture-preview {
 	width: 100px;
 	height: 100px;
