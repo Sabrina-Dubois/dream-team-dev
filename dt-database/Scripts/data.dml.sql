@@ -1,4 +1,4 @@
-DELETE FROM t_skill_poficiency ;
+DELETE FROM t_skills;
 DELETE FROM t_developers ;
 DELETE FROM t_topics ;
 DELETE FROM t_levels ;
@@ -18,10 +18,10 @@ INSERT INTO t_topics (skill_name, is_technical_skill ) VALUES
 	('Java', true),
 	('TeamWork', false);
 
-INSERT INTO t_skill_poficiency(dev_id, topic_id, level_id ) VALUES 
+INSERT INTO t_skills(dev_id, topic_id, level_id ) VALUES
 	(1,1,2),
 (1,2, null);
 
 SELECT * FROM t_levels;
 SELECT * FROM t_developers;
-SELECT * FROM t_skill_poficiency;
+SELECT * FROM t_skills;
