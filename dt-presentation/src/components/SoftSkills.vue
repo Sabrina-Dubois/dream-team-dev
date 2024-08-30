@@ -87,15 +87,8 @@ export default {
 			}
 		}, 
 		async updateSoftSkills() {
-			const formData = new FormData()
-			formData.append('description', this.user.description)
-
-			console.log('Response:', response)
-
-			if (this.picture instanceof File) {
-				formData.append('picture', this.picture)
-			}
-
+			const formData = new FormData();
+			formData.append('softSkills', JSON.stringify(this.user.softSkills)); 
 			try {
 				const response = await fetch(`http://localhost:8080/developers`, {
 					method: 'PATCH',

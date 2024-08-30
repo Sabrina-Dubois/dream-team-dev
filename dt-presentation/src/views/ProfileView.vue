@@ -85,7 +85,7 @@
 					<!-- Description -->
 					<label for="description" class="form-label fs-5 mb-2 mt-4">{{ $t('Description') }}</label>
 					<div class="card bg-light">
-						<div class="card-body d-flex flex-column">
+						<div class="card-body d-flex flex-column ">
 							<textarea
 								v-model="user.description"
 								@input="validateDescription"
@@ -93,7 +93,7 @@
 								id="descroption"
 								style="height: 100px"
 							></textarea>
-							<div v-if="descriptionError" class="alert alert-danger mt-2">
+							<div v-if="descriptionError" class="mt-2 feedback fst-italic text-danger">
 								{{ descriptionError }}
 							</div>
 						</div>
