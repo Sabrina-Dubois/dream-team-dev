@@ -65,14 +65,16 @@
 									/>
 								</div>
 								<div class="col">
-									<a class="btn btn-primary" href="https://www.linkedin.com" target="_blank">
-										<i class="fab fa-linkedin"></i>
-									</a>
+								    <div class="d-flex">
+									    <a class="btn btn-primary col" href="https://www.linkedin.com" target="_blank">
+										    <i class="fab fa-linkedin"></i>
+									    </a>
 									<input
 										v-model="user.linkedin"
 										type="text"
-										class="form-control"										
+										class="form-control mx-2"										
 									/>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -153,10 +155,10 @@ export default {
 		async updateProfile() {
 			const formData = new FormData();
 			formData.append('description', this.user.description);
-			formData.append('linkedin', this.user.linkedin); 
+			formData.append('linkedin', this.user.linkedin);
 
-			if (this.user.picture) {
-				formData.append('picture', this.user.picture);  // Ajouter le fichier image à FormData
+			if (this.picture) {
+				formData.append('picture', this.picture);  // Ajouter le fichier image à FormData
 			}
 
 			try {
