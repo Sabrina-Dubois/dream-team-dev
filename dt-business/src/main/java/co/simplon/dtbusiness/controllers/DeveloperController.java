@@ -28,9 +28,10 @@ public class DeveloperController {
 	return service.findProjectedByInternalNumber(internalNumber);
     }
 
-    @PatchMapping("/{id}")
-    public void updateDeveloper(@PathVariable final Long id, @ModelAttribute  final DeveloperUpdate developer) {
-        service.updateDeveloper(id,developer);
+    @PatchMapping("/{internalNumber}")
+    public void updateDeveloper(@PathVariable("internalNumber") String internalNumber, @ModelAttribute  final DeveloperUpdate developer) {
+        service.updateDeveloper(internalNumber,developer);
     }
+
 
 }

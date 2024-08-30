@@ -13,6 +13,6 @@ public interface DeveloperService {
 
     List<DeveloperView> findAll();
 
-    void updateDeveloper(Long id, DeveloperUpdate developer);
+    void updateDeveloper(String internalNumber, DeveloperUpdate developer);
 
 }
