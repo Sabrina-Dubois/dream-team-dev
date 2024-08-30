@@ -88,9 +88,9 @@ public class DeveloperServiceImpl implements DeveloperService {
     }
 
     @Override
-    public void updateDeveloper(Long id, DeveloperUpdate developer) {
+    public void updateDeveloper(String internalNumber, DeveloperUpdate developer) {
 
-        Developer entity = repos.findById(id).get();
+        Developer entity = repos.findProjectedByInternalNumber(internalNumber);
         entity.setDescription(developer.description());
         entity.setLinkedin(developer.linkedin());
         MultipartFile image = developer.picture();
