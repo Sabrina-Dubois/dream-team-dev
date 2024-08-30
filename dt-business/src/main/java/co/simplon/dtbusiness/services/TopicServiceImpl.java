@@ -3,6 +3,7 @@ package co.simplon.dtbusiness.services;
 import co.simplon.dtbusiness.dtos.out.TopicView;
 import co.simplon.dtbusiness.entities.Topic;
 import co.simplon.dtbusiness.repositories.TopicRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,7 +31,7 @@ public class TopicServiceImpl implements TopicService {
         return repo.findByName(name);
     }
 
-
+    @Transactional
     @Override
     public Topic saveTopic(Topic topic) {
         return repo.save(topic);

@@ -7,6 +7,7 @@ import co.simplon.dtbusiness.dtos.in.DeveloperUpdate;
 import co.simplon.dtbusiness.dtos.in.SkillCreateOrAdd;
 import co.simplon.dtbusiness.dtos.out.DeveloperView;
 import co.simplon.dtbusiness.entities.Developer;
+import co.simplon.dtbusiness.entities.Skill;
 
 public interface DeveloperService {
     DeveloperView findProjectedByInternalNumber(String internalNumber);
@@ -14,5 +15,7 @@ public interface DeveloperService {
     List<DeveloperView> findAll();
 
     void updateDeveloper(String internalNumber, DeveloperUpdate developer);
+
+    Skill saveSkill(Skill skill);
 
 }

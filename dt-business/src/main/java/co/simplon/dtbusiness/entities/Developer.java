@@ -2,13 +2,7 @@ package co.simplon.dtbusiness.entities;
 
 import java.util.Set;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "t_developers")
@@ -40,81 +34,81 @@ public class Developer {
     private String linkedin;
 
     @OneToMany(targetEntity = Skill.class, mappedBy = "developer")
-    private Set<Skill> skillProficiencies;
+    private Set<Skill> skills;
 
     public Developer() {
-	// Default for ORM
+        // Default for ORM
     }
 
     public Long getId() {
-	return id;
+        return id;
     }
 
     public void setId(Long id) {
-	this.id = id;
+        this.id = id;
     }
 
     public String getInternalNumber() {
-	return internalNumber;
+        return internalNumber;
     }
 
     public void setInternalNumber(String internalNumber) {
-	this.internalNumber = internalNumber;
+        this.internalNumber = internalNumber;
     }
 
     public String getFirstName() {
-	return firstName;
+        return firstName;
     }
 
     public void setFirstName(String firstName) {
-	this.firstName = firstName;
+        this.firstName = firstName;
     }
 
     public String getLastName() {
-	return lastName;
+        return lastName;
     }
 
     public void setLastName(String lastName) {
-	this.lastName = lastName;
+        this.lastName = lastName;
     }
 
     public String getEmail() {
-	return email;
+        return email;
     }
 
     public void setEmail(String email) {
-	this.email = email;
+        this.email = email;
     }
 
     public String getDescription() {
-	return description;
+        return description;
     }
 
     public void setDescription(String description) {
-	this.description = description;
+        this.description = description;
     }
 
     public String getPicture() {
-	return picture;
+        return picture;
     }
 
     public void setPicture(String picture) {
-	this.picture = picture;
+        this.picture = picture;
     }
 
     public String getLinkedin() {
-	return linkedin;
+        return linkedin;
     }
 
     public void setLinkedin(String linkedin) {
-	this.linkedin = linkedin;
+        this.linkedin = linkedin;
     }
 
-    public Set<Skill> getSkillProficiencies() {
-	return skillProficiencies;
+    public Set<Skill> getSkills() {
+        return skills;
     }
 
-    public void setSkillProficiencies(Set<Skill> skillProficiencies) {
-	this.skillProficiencies = skillProficiencies;
+    public void setSkills(Set<Skill> skills) {
+        this.skills = skills;
     }
 }
