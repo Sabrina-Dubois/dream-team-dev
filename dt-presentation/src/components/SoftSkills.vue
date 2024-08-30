@@ -78,11 +78,33 @@ export default {
 		},
 		async getSoftSkills() {
 			try {
-				const response = await fetch(`http://localhost:8080/??????`);
+				const response = await fetch(`http://localhost:8080/topics/search?label=TeamWork&isTechnical=false`);
+				const data = await response.json()
 				this.availableSoftSkills = data;
 				console.log(this.availableSoftSkills);
 			} catch {
 				console.error('Erreur lors de la récupération des soft skills:', error);
+			}
+		}, 
+		async updateSoftSkills() {
+			const formData = new FormData()
+			formData.append('description', this.user.description)
+
+			console.log('Response:', response)
+
+			if (this.picture instanceof File) {
+				formData.append('picture', this.picture)
+			}
+
+			try {
+				const response = await fetch(`http://localhost:8080/developers`, {
+					method: 'PATCH',
+					body: formData
+				})
+				const data = await response.json()
+				console.log('Profil mis à jour avec succès', data)
+			} catch (error) {
+				console.error(error)
 			}
 		}
 	}

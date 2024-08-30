@@ -95,7 +95,7 @@ export default {
 			}
 		}, async getTechnicalSkills() {
 			try {
-				const response = await fetch(`http://localhost:8080/????????`)
+				const response = await fetch(`http://localhost:8080/topics/search?label=Java`)
 				const data = await response.json()
 				this.availableTechnicalSkills = data
 				console.log(this.availableTechnicalSkills)

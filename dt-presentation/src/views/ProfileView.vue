@@ -6,10 +6,14 @@
 
 				<!-- Informations personnelles -->
 				<div>
-					<label for="personalInfo" class="form-label fs-5">{{ $t('Informations personnelles') }}</label>
-					<div class="d-flex flex-row align-items-start mt-4 card bg-light p-4">
+					<label for="personalInfo" class="form-label fs-5">{{
+						$t('Informations personnelles')
+					}}</label>
+					<div class="row mt-4 card bg-light p-4">
 						<!-- Picture and File input  -->
-						<div class="d-flex flex-column align-items-center mx-3">
+						<div
+							class="col-12 col-lg-3 d-flex flex-column align-items-center  mb-3 mb-lg-0"
+						>
 							<!-- Picture -->
 							<div v-if="picture" class="profile-picture-preview mb-2">
 								<img :src="picture" alt="Profile" class="rounded-circle img-fluid" />
@@ -26,9 +30,9 @@
 						</div>
 
 						<!-- Input fields -->
-						<div>
+						<div class="col-12 col-lg-9">
 							<div class="row">
-								<div class="col">
+								<div class="col-12 col-lg-3 mb-3">
 									<input
 										v-model="user.lastName"
 										type="text"
@@ -37,7 +41,7 @@
 										disabled
 									/>
 								</div>
-								<div class="col">
+								<div class="col-12 col-lg-3 mb-3">
 									<input
 										v-model="user.firstName"
 										type="text"
@@ -46,7 +50,7 @@
 										disabled
 									/>
 								</div>
-								<div class="col">
+								<div class="col-12 col-lg-3 mb-3">
 									<input
 										v-model="user.email"
 										type="email"
@@ -55,7 +59,7 @@
 										disabled
 									/>
 								</div>
-								<div class="col">
+								<div class="col-12 col-lg-2 mb-3">
 									<input
 										v-model="user.internalNumber"
 										type="text"
@@ -64,7 +68,7 @@
 										disabled
 									/>
 								</div>
-								<div class="col">
+								<div class="col-12 col-lg-1 mb-3">
 									<a class="btn btn-primary" href="https://www.linkedin.com" target="_blank">
 										<i class="fab fa-linkedin"></i>
 									</a>
@@ -84,10 +88,14 @@
 						<div class="card-body d-flex flex-column">
 							<textarea
 								v-model="user.description"
+								@input="validateDescription"
 								class="form-control"
-								id="floatingTextarea2"
+								id="descroption"
 								style="height: 100px"
 							></textarea>
+							<div v-if="descriptionError" class="alert alert-danger mt-2">
+								{{ descriptionError }}
+							</div>
 						</div>
 					</div>
 
@@ -95,7 +103,7 @@
 					<SoftSkills />
 
 					<div class="d-flex justify-content-center mt-3">
-						<button class="btn btn-primary">{{ $t('SOUMETTRE') }}</button>
+						<button class="btn btn-primary col-12 col-lg-2">{{ $t('SOUMETTRE') }}</button>
 					</div>
 				</div>
 			</form>
@@ -116,13 +124,15 @@ export default {
 	data() {
 		return {
 			picture: null,
+			// users: [],
 			user: {
 				lastName: '',
 				firstName: '',
 				email: '',
 				internalNumber: 'abc1234',
-				description: ''  
-			}
+				description: ''
+			},
+			descriptionError: ''
 		}
 	},
 	mounted() {
@@ -146,29 +156,36 @@ export default {
 		onFileChange(event) {
 			const file = event.target.files[0];
 			if (file) {
-				this.picture = URL.createObjectURL(file);
-				this.user.picture = file;  
+				this.picture = URL.createObjectURL(file)
+				this.user.picture = file;
+			}
+		},
+		// Change description length > 5000 -> 5 is a test
+		validateDescription() {
+			if (this.user.description.length > 5) {
+				this.descriptionError = 'La description ne peut pas dépasser 5000 caractères.'
+			} else {
+				this.descriptionError = ''
 			}
 		},
 		async updateProfile() {
-			const formData = new FormData();
+			const formData = new FormData()
 			formData.append('description', this.user.description);
-			formData.append('linkedin', this.user.linkedin); 
+			formData.append('linkedin', this.user.linkedin);
 
-			if (this.user.picture) {
-				formData.append('picture', this.user.picture);  // Ajouter le fichier image à FormData
+			console.log('Response:', response)
+
+			if (this.user.picture instanceof File) {
+				formData.append('picture', this.user.picture)
 			}
 
 			try {
 				const response = await fetch(`http://localhost:8080/developers/${this.user.internalNumber}`, {
 					method: 'PATCH',
 					body: formData
-				});
-				if (response.ok) {
-					console.log('Profil mis à jour avec succès');
-				} else {
-					console.error('Échec de la mise à jour du profil');
-				}
+				})
+				const data = await response.json()
+				console.log('Profil mis à jour avec succès', data)
 			} catch (error) {
 				console.error('Erreur lors de la mise à jour du profil', error);
 			}
