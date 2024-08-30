@@ -27,9 +27,14 @@
 					list="datalistSoftSkills"
 				/>
 				<datalist id="datalistSoftSkills">
-							<option value="TRAVAIL EN EQUIPE"></option>
+					<option 
+						v-for="(skill, index) in availableSoftSkills" 
+						:key="index"
+						:value="skill.name"
+					></option>
+							<!-- <option value="TRAVAIL EN EQUIPE"></option>
 							<option value="CURIEUX"></option>
-							<option value="PATIENT"></option>
+							<option value="PATIENT"></option> -->
 						</datalist>
 				
 
@@ -50,8 +55,12 @@ export default {
 	data() {
 		return {
 			selectedSkills: [],
-			newSkill: ''
+			newSkill: '',
+			availableSoftSkills: [] 
 		};
+	},
+	mounted() {
+		this.getSoftSkills();
 	},
 	methods: {
 		// Function 
@@ -66,6 +75,15 @@ export default {
 		// Remove a skill
 		removeSkill(index) {
 			this.selectedSkills.splice(index, 1);
+		},
+		async getSoftSkills() {
+			try {
+				const response = await fetch(`http://localhost:8080/??????`);
+				this.availableSoftSkills = data;
+				console.log(this.availableSoftSkills);
+			} catch {
+				console.error('Erreur lors de la récupération des soft skills:', error);
+			}
 		}
 	}
 };
