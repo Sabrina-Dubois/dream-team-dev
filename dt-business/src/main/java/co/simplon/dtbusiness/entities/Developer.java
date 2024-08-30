@@ -37,7 +37,7 @@ public class Developer {
     private String picture;
 
     @Column(name = "linkedin")
-    private String linledin;
+    private String linkedin;
 
     @OneToMany(targetEntity = Skill.class, mappedBy = "developer")
     private Set<Skill> skillProficiencies;
@@ -102,12 +102,12 @@ public class Developer {
 	this.picture = picture;
     }
 
-    public String getLinledin() {
-	return linledin;
+    public String getLinkedin() {
+	return linkedin;
     }
 
-    public void setLinledin(String linledin) {
-	this.linledin = linledin;
+    public void setLinkedin(String linkedin) {
+	this.linkedin = linkedin;
     }
 
     public Set<Skill> getSkillProficiencies() {
