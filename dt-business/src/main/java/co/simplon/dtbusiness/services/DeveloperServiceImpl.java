@@ -57,10 +57,6 @@ public class DeveloperServiceImpl implements DeveloperService {
 
         Developer entity = new Developer();
 
-        entity.setInternalNumber(developer.internalNumber());
-        entity.setFirstName(developer.firstName());
-        entity.setLastName(developer.lastName());
-        entity.setEmail(developer.email());
         entity.setDescription(developer.description());
         entity.setLinkedin(developer.linkedin());
 
@@ -92,14 +88,9 @@ public class DeveloperServiceImpl implements DeveloperService {
     }
 
     @Override
-    public void updateDeveloper(Long id, DeveloperUpdate developer) {
+    public void updateDeveloper(String internalNumber, DeveloperUpdate developer) {
 
-        Developer entity = repos.findById(id).get();
-
-        entity.setInternalNumber(developer.internalNumber());
-        entity.setFirstName(developer.firstName());
-        entity.setLastName(developer.lastName());
-        entity.setEmail(developer.email());
+        Developer entity = repos.findProjectedByInternalNumber(internalNumber);
         entity.setDescription(developer.description());
         entity.setLinkedin(developer.linkedin());
         MultipartFile image = developer.picture();

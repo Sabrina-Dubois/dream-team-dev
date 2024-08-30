@@ -3,12 +3,12 @@ package co.simplon.dtbusiness.controllers;
 import java.util.List;
 
 import co.simplon.dtbusiness.dtos.in.DeveloperUpdate;
-import co.simplon.dtbusiness.entities.Developer;
 import org.springframework.web.bind.annotation.*;
 
 import co.simplon.dtbusiness.dtos.out.DeveloperView;
 import co.simplon.dtbusiness.services.DeveloperService;
 
+@CrossOrigin("*")
 @RequestMapping("/developers")
 @RestController
 public class DeveloperController {
@@ -28,9 +28,10 @@ public class DeveloperController {
 	return service.findProjectedByInternalNumber(internalNumber);
     }
 
-    @PatchMapping("/{id}")
-    public void updateDeveloper(@PathVariable final Long id, @ModelAttribute  final DeveloperUpdate developer) {
-        service.updateDeveloper(id,developer);
+    @PatchMapping("/{internalNumber}")
+    public void updateDeveloper(@PathVariable("internalNumber") String internalNumber, @ModelAttribute  final DeveloperUpdate developer) {
+        service.updateDeveloper(internalNumber,developer);
     }
+
 
 }
