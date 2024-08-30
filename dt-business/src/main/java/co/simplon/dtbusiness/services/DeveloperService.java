@@ -14,7 +14,7 @@ public interface DeveloperService {
 
     List<DeveloperView> findAll();
 
-    void updateDeveloper(String internalNumber, DeveloperUpdate developer);
+    void updateDeveloper(String internalNumber, DeveloperUpdate developer, List<SkillCreateOrAdd> skillsJson);
 
     Skill saveSkill(Skill skill);
 

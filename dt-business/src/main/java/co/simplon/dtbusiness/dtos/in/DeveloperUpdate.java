@@ -9,8 +9,7 @@ import java.util.Set;
 public record DeveloperUpdate(
         String description,
         MultipartFile picture,
-        String linkedin,
-        List<SkillCreateOrAdd> skills
+        String linkedin
 ) {
 
 }

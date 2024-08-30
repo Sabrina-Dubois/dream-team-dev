@@ -125,7 +125,7 @@ public class DeveloperServiceImpl implements DeveloperService {
     }
 
     @Override
-    public void updateDeveloper(String internalNumber, DeveloperUpdate developer) {
+    public void updateDeveloper(String internalNumber, DeveloperUpdate developer, List<SkillCreateOrAdd> skillsJson) {
 
         Developer entity = repos.findProjectedByInternalNumber(internalNumber);
         entity.setDescription(developer.description());
@@ -134,7 +134,7 @@ public class DeveloperServiceImpl implements DeveloperService {
 
         Set<Skill> skillsAddDev = new HashSet<>();
 
-        Collection<SkillCreateOrAdd> skillsdev = developer.skills();
+        Collection<SkillCreateOrAdd> skillsdev = skillsJson;
 
         if (skillsdev != null) {
             for (SkillCreateOrAdd skill : skillsdev) {
@@ -152,6 +152,14 @@ public class DeveloperServiceImpl implements DeveloperService {
                         Skill skillDev = saveSkill(newSkill);
                         skillsAddDev.add(skillDev);
 
+                    } else {
+                        Topic addedTopic = topicService.findByName(skill.name());
+                        Skill newSkill = new Skill();
+                        newSkill.setTopic(addedTopic);
+                        Optional<Level> level = levelRepository.findById(skill.level());
+                        level.ifPresent(newSkill::setLevel);
+                        Skill skillDev = saveSkill(newSkill);
+                        skillsAddDev.add(skillDev);
                     }
                 } else {
                     if (topic.isEmpty()) {
@@ -162,6 +170,15 @@ public class DeveloperServiceImpl implements DeveloperService {
                         Skill newSkill = new Skill();
                         newSkill.setTopic(addedTopic);
                         Skill skillDev = saveSkill(newSkill);
+                        skillsAddDev.add(skillDev);
+                    } else {
+                        Topic addedTopic = topicService.findByName(skill.name());
+                        Skill newSkill = new Skill();
+                        newSkill.setTopic(addedTopic);
+                        newSkill.setDeveloper(entity);
+                        newSkill.setLevel(null);
+                        Skill skillDev = saveSkill(newSkill);
+
                         skillsAddDev.add(skillDev);
                     }
                 }
@@ -176,9 +193,10 @@ public class DeveloperServiceImpl implements DeveloperService {
         }
         repos.save(entity);
     }
-    
+
     @Override
     public Skill saveSkill(Skill skill) {
-        return skillRepo.save(skill);
+        Skill savedSkill = skillRepo.save(skill);
+        return savedSkill;
     }
 }
