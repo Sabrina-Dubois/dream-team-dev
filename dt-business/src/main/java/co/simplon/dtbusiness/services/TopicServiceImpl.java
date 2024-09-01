@@ -7,6 +7,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TopicServiceImpl implements TopicService {
@@ -27,7 +28,7 @@ public class TopicServiceImpl implements TopicService {
     }
 
     @Override
-    public Topic findByName(String name) {
+    public Optional<Topic> findByName(String name) {
         return repo.findByName(name);
     }
 

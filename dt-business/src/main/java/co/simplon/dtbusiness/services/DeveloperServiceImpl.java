@@ -12,7 +12,6 @@ import co.simplon.dtbusiness.entities.Skill;
 import co.simplon.dtbusiness.entities.Topic;
 import co.simplon.dtbusiness.repositories.LevelRepository;
 import co.simplon.dtbusiness.repositories.SkillRepository;
-import co.simplon.dtbusiness.repositories.TopicRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -31,15 +30,12 @@ public class DeveloperServiceImpl implements DeveloperService {
     private String uploadsDest;
     private final DeveloperRepository repos;
     private final SkillRepository skillRepo;
-    private final TopicRepository topicRepo;
-
     private final TopicService topicService;
 
 
-    public DeveloperServiceImpl(DeveloperRepository repos, TopicRepository topicRepo, SkillRepository skillRepo, TopicRepository topicRepo1, LevelRepository levelRepository, TopicService topicService) {
+    public DeveloperServiceImpl(DeveloperRepository repos, SkillRepository skillRepo, LevelRepository levelRepository, TopicService topicService) {
         this.repos = repos;
         this.skillRepo = skillRepo;
-        this.topicRepo = topicRepo1;
         this.levelRepository = levelRepository;
         this.topicService = topicService;
     }
@@ -138,48 +134,61 @@ public class DeveloperServiceImpl implements DeveloperService {
 
         if (skillsdev != null) {
             for (SkillCreateOrAdd skill : skillsdev) {
-                Optional<Topic> topic = topicRepo.findById(skill.id());
-                if (skill.isTechnical()) {
-                    if (topic.isEmpty()) {
+                Optional<Topic> topic = topicService.findByName(skill.name());
+                if (topic.isEmpty()) {
+                    if (skill.isTechnical()) {
                         Topic newTopic = new Topic();
                         newTopic.setName(skill.name());
                         newTopic.setTechnical(true);
                         Topic addedTopic = topicService.saveTopic(newTopic);
                         Skill newSkill = new Skill();
                         newSkill.setTopic(addedTopic);
-                        Optional<Level> level = levelRepository.findById(skill.level());
+                        newSkill.setDeveloper(entity);
+                        Optional<Level> level = levelRepository.findOneOptionalByName(skill.levelName());
                         level.ifPresent(newSkill::setLevel);
-                        Skill skillDev = saveSkill(newSkill);
-                        skillsAddDev.add(skillDev);
+                        newSkill = saveSkill(newSkill);
+                        skillsAddDev.add(newSkill);
 
                     } else {
-                        Topic addedTopic = topicService.findByName(skill.name());
-                        Skill newSkill = new Skill();
-                        newSkill.setTopic(addedTopic);
-                        Optional<Level> level = levelRepository.findById(skill.level());
-                        level.ifPresent(newSkill::setLevel);
-                        Skill skillDev = saveSkill(newSkill);
-                        skillsAddDev.add(skillDev);
-                    }
-                } else {
-                    if (topic.isEmpty()) {
                         Topic newTopic = new Topic();
                         newTopic.setName(skill.name());
                         newTopic.setTechnical(false);
                         Topic addedTopic = topicService.saveTopic(newTopic);
                         Skill newSkill = new Skill();
                         newSkill.setTopic(addedTopic);
-                        Skill skillDev = saveSkill(newSkill);
-                        skillsAddDev.add(skillDev);
-                    } else {
-                        Topic addedTopic = topicService.findByName(skill.name());
+                        newSkill.setDeveloper(entity);
+                        newSkill = saveSkill(newSkill);
+                        skillsAddDev.add(newSkill);
+
+                    }
+                } else {
+                    if (skill.isTechnical()) {
+                        Topic addedTopic = topic.get();
                         Skill newSkill = new Skill();
                         newSkill.setTopic(addedTopic);
                         newSkill.setDeveloper(entity);
-                        newSkill.setLevel(null);
-                        Skill skillDev = saveSkill(newSkill);
 
-                        skillsAddDev.add(skillDev);
+                        if (skillRepo.findByDeveloperAndTopic(entity, addedTopic).isEmpty()) {
+                            Optional<Level> level = levelRepository.findOneOptionalByName(skill.levelName());
+                            level.ifPresent(newSkill::setLevel);
+                            newSkill = saveSkill(newSkill);
+                        } else {
+                            newSkill = skillRepo.findByDeveloperAndTopic(entity, addedTopic).get();
+                            Optional<Level> level = levelRepository.findOneOptionalByName(skill.levelName());
+                            level.ifPresent(newSkill::setLevel);
+                        }
+                        skillsAddDev.add(newSkill);
+
+                    } else {
+
+                        Topic addedTopic = topic.get();
+                        Skill newSkill = new Skill();
+                        newSkill.setTopic(addedTopic);
+                        newSkill.setDeveloper(entity);
+                        if (skillRepo.findByDeveloperAndTopic(entity, addedTopic).isEmpty()) {
+                            Skill skillDev = saveSkill(newSkill);
+                            skillsAddDev.add(skillDev);
+                        }
                     }
                 }
             }

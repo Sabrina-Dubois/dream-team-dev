@@ -5,28 +5,29 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "t_skills")
 public class Skill {
-    @EmbeddedId
-    private SkillId id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_skill")
+    private Long id;
 
     @ManyToOne
-    @MapsId("developer")
-    @JoinColumn(name = "dev_id")
+    @JoinColumn(name = "dev_id", nullable = false)
     private Developer developer;
 
     @ManyToOne
-    @MapsId("topic")
-    @JoinColumn(name = "topic_id")
+    @JoinColumn(name = "topic_id", nullable = false)
     private Topic topic;
 
     @ManyToOne
     @JoinColumn(name = "level_id")
+
     private Level level;
 
-    public SkillId getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(SkillId id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
