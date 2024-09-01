@@ -2,16 +2,10 @@
   "Profil": "Profil",
   "Informations personnelles": "Informations personnelles",
   "Description": "Description",
-  "Soft Skills": "Compétences comportementales",
+  "Soft Skills": "Soft Skills",
   "SOUMETTRE": "SOUMETTRE",
-  "Niveau Junior": "Niveau Junior",
-  "Niveau Senior": "Niveau Senior",
-  "Niveau Expert": "Niveau Expert",
   "Compétences techniques": "Compétences techniques",
   "Choisir un fichier": "Choisir un fichier",
   "Aucun fichier choisi": "Aucun fichier choisi",
-  "Level": "Niveau",
-  "JAVA": "JAVA",
-  "JS": "JS",
-  "PYTHON": "PYTHON"
+  "Level": "Niveau"
 }

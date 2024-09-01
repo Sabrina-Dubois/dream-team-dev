@@ -2,22 +2,21 @@
 	<main>
 		<div class="container mt-5">
 			<form @submit.prevent="updateProfile">
-				<h1 class="text-center">{{ $t('Profil') }}</h1>
+				<h1 class="text-center">{{ $t('Profile') }}</h1>
 
 				<!-- Informations personnelles -->
 				<div>
 					<label for="personalInfo" class="form-label fs-5">{{
 						$t('Informations personnelles')
 					}}</label>
-					<div class="d-flex flex-row align-items-start mt-4 card bg-light p-4">
+					<div class="row mt-4 card bg-light p-4">
 						<!-- Picture and File input  -->
-						<div class="d-flex flex-column align-items-center mx-3">
+						<div
+							class="col-12 col-lg-3 d-flex flex-column align-items-center  mb-3 mb-lg-0"
+						>
 							<!-- Picture -->
-							<div v-if="pictureProfil" class="profile-picture-preview mb-2">
-								<img 
-								:src="pictureProfil" 
-								alt="Profile" 
-								class="rounded-circle img-fluid" />
+							<div v-if="picture" class="profile-picture-preview mb-2">
+								<img :src="picture" alt="Profile" class="rounded-circle img-fluid" />
 							</div>
 
 							<div class="mb-2">
@@ -31,9 +30,9 @@
 						</div>
 
 						<!-- Input fields -->
-						<div>
+						<div class="col-12 col-lg-9">
 							<div class="row">
-								<div class="col">
+								<div class="col-12 col-lg-3 mb-3">
 									<input
 										v-model="user.lastName"
 										type="text"
@@ -42,7 +41,7 @@
 										disabled
 									/>
 								</div>
-								<div class="col">
+								<div class="col-12 col-lg-3 mb-3">
 									<input
 										v-model="user.firstName"
 										type="text"
@@ -51,7 +50,7 @@
 										disabled
 									/>
 								</div>
-								<div class="col">
+								<div class="col-12 col-lg-3 mb-3">
 									<input
 										v-model="user.email"
 										type="email"
@@ -60,20 +59,24 @@
 										disabled
 									/>
 								</div>
-								<div class="col">
+								<div class="col-12 col-lg-2 mb-3">
 									<input
 										v-model="user.internalNumber"
-										@change="handleFileUpload"
 										type="text"
 										class="form-control mb-3"
 										placeholder="Matricule"
 										disabled
 									/>
 								</div>
-								<div class="col">
+								<div class="col-12 col-lg-1 mb-3">
 									<a class="btn btn-primary" href="https://www.linkedin.com" target="_blank">
 										<i class="fab fa-linkedin"></i>
 									</a>
+									<input
+										v-model="user.linkedin"
+										type="text"
+										class="form-control"										
+									/>
 								</div>
 							</div>
 						</div>
@@ -82,12 +85,17 @@
 					<!-- Description -->
 					<label for="description" class="form-label fs-5 mb-2 mt-4">{{ $t('Description') }}</label>
 					<div class="card bg-light">
-						<div class="card-body d-flex flex-column">
+						<div class="card-body d-flex flex-column ">
 							<textarea
+								v-model="user.description"
+								@input="validateDescription"
 								class="form-control"
-								id="floatingTextarea2"
+								id="descroption"
 								style="height: 100px"
 							></textarea>
+							<div v-if="descriptionError" class="mt-2 feedback fst-italic text-danger">
+								{{ descriptionError }}
+							</div>
 						</div>
 					</div>
 
@@ -95,7 +103,7 @@
 					<SoftSkills />
 
 					<div class="d-flex justify-content-center mt-3">
-						<button class="btn btn-primary">{{ $t('SOUMETTRE') }}</button>
+						<button class="btn btn-primary col-12 col-lg-2">{{ $t('SOUMETTRE') }}</button>
 					</div>
 				</div>
 			</form>
@@ -103,19 +111,19 @@
 	</main>
 </template>
 
-<script >
+<script>
 import TechnicalSkills from '@/components/TechnicalSkills.vue'
 import SoftSkills from '@/components/SoftSkills.vue'
 
 export default {
-	name: 'ProfilView',
+	name: 'ProfileView',
 	components: {
 		TechnicalSkills,
 		SoftSkills
 	},
 	data() {
 		return {
-			pictureProfil: null,
+			picture: null,
 			// users: [],
 			user: {
 				lastName: '',
@@ -123,48 +131,63 @@ export default {
 				email: '',
 				internalNumber: 'abc1234',
 				description: ''
-			}
+			},
+			descriptionError: ''
 		}
 	},
 	mounted() {
-		this.getProfile()
+		this.getProfile();
 	},
 	methods: {
 		async getProfile() {
 			try {
-				console.log(this.user)
-				const response = await fetch(`http://localhost:8080/developers/${this.user.internalNumber}`)
-				const data = await response.json()
-				this.user.firstName = data.firstName
-				this.user.lastName = data.lastName
-				this.user.email = data.email
-				this.user.internalNumber = data.internalNumber
+				const response = await fetch(`http://localhost:8080/developers/${this.user.internalNumber}`);
+				const data = await response.json();
+				this.user.firstName = data.firstName;
+				this.user.lastName = data.lastName;
+				this.user.email = data.email;
+				this.user.internalNumber = data.internalNumber;
+				this.user.description = data.description;
+				this.user.linkedin = data.linkedin;
 			} catch (error) {
-				console.log('Erreur lors de la récupération des données', error)
+				console.log('Erreur lors de la récupération des données', error);
 			}
 		},
 		onFileChange(event) {
-			const file = event.target.files[0]
+			const file = event.target.files[0];
 			if (file) {
-				this.pictureProfil = URL.createObjectURL(file)
+				this.picture = URL.createObjectURL(file)
+				this.user.picture = file;
+			}
+		},
+		// Change description length > 5000 -> 5 is a test
+		validateDescription() {
+			if (this.user.description.length > 5) {
+				this.descriptionError = 'La description ne peut pas dépasser 5000 caractères.'
+			} else {
+				this.descriptionError = ''
 			}
 		},
 		async updateProfile() {
 			const formData = new FormData()
-			formData.append('description', this.user.description)
-			formData.append('internalNumber', this.user.internalNumber)
+			formData.append('description', this.user.description);
+			formData.append('linkedin', this.user.linkedin);
 
-			if (this.user.pictureProfil instanceof File) {
-				formData.append('pictureProfil', this.user.pictureProfil)
+			console.log('Response:', response)
+
+			if (this.user.picture instanceof File) {
+				formData.append('picture', this.user.picture)
 			}
 
 			try {
-				const response = fetch(`http://localhost:8080/developers`, {
+				const response = await fetch(`http://localhost:8080/developers/${this.user.internalNumber}`, {
 					method: 'PATCH',
 					body: formData
 				})
+				const data = await response.json()
+				console.log('Profil mis à jour avec succès', data)
 			} catch (error) {
-				console.error(error)
+				console.error('Erreur lors de la mise à jour du profil', error);
 			}
 		}
 	}

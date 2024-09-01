@@ -4,12 +4,13 @@ import co.simplon.dtbusiness.dtos.out.LevelView;
 import co.simplon.dtbusiness.dtos.out.TopicView;
 import co.simplon.dtbusiness.services.LevelService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-
+@CrossOrigin("*")
 @RequestMapping("/levels")
 @RestController
 public class LevelController {
