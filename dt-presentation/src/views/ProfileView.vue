@@ -2,17 +2,22 @@
 	<main>
 		<div class="container mt-5">
 			<form @submit.prevent="updateProfile">
-				<h1 class="text-center">{{ $t('Profile') }}</h1>
+				<h1 class="text-center">{{ $t('Profil') }}</h1>
 
 				<!-- Informations personnelles -->
 				<div>
-					<label for="personalInfo" class="form-label fs-5">{{ $t('Informations personnelles') }}</label>
+					<label for="personalInfo" class="form-label fs-5">{{
+						$t('Informations personnelles')
+					}}</label>
 					<div class="d-flex flex-row align-items-start mt-4 card bg-light p-4">
 						<!-- Picture and File input  -->
 						<div class="d-flex flex-column align-items-center mx-3">
 							<!-- Picture -->
-							<div v-if="picture" class="profile-picture-preview mb-2">
-								<img :src="picture" alt="Profile" class="rounded-circle img-fluid" />
+							<div v-if="pictureProfil" class="profile-picture-preview mb-2">
+								<img 
+								:src="pictureProfil" 
+								alt="Profile" 
+								class="rounded-circle img-fluid" />
 							</div>
 
 							<div class="mb-2">
@@ -58,6 +63,7 @@
 								<div class="col">
 									<input
 										v-model="user.internalNumber"
+										@change="handleFileUpload"
 										type="text"
 										class="form-control mb-3"
 										placeholder="Matricule"
@@ -65,16 +71,9 @@
 									/>
 								</div>
 								<div class="col">
-								    <div class="d-flex">
-									    <a class="btn btn-primary col" href="https://www.linkedin.com" target="_blank">
-										    <i class="fab fa-linkedin"></i>
-									    </a>
-									<input
-										v-model="user.linkedin"
-										type="text"
-										class="form-control mx-2"										
-									/>
-									</div>
+									<a class="btn btn-primary" href="https://www.linkedin.com" target="_blank">
+										<i class="fab fa-linkedin"></i>
+									</a>
 								</div>
 							</div>
 						</div>
@@ -85,7 +84,6 @@
 					<div class="card bg-light">
 						<div class="card-body d-flex flex-column">
 							<textarea
-								v-model="user.description"
 								class="form-control"
 								id="floatingTextarea2"
 								style="height: 100px"
@@ -105,74 +103,68 @@
 	</main>
 </template>
 
-<script>
+<script >
 import TechnicalSkills from '@/components/TechnicalSkills.vue'
 import SoftSkills from '@/components/SoftSkills.vue'
 
 export default {
-	name: 'ProfileView',
+	name: 'ProfilView',
 	components: {
 		TechnicalSkills,
 		SoftSkills
 	},
 	data() {
 		return {
-			picture: null,
+			pictureProfil: null,
+			// users: [],
 			user: {
 				lastName: '',
 				firstName: '',
 				email: '',
 				internalNumber: 'abc1234',
-				description: ''  
+				description: ''
 			}
 		}
 	},
 	mounted() {
-		this.getProfile();
+		this.getProfile()
 	},
 	methods: {
 		async getProfile() {
 			try {
-				const response = await fetch(`http://localhost:8080/developers/${this.user.internalNumber}`);
-				const data = await response.json();
-				this.user.firstName = data.firstName;
-				this.user.lastName = data.lastName;
-				this.user.email = data.email;
-				this.user.internalNumber = data.internalNumber;
-				this.user.description = data.description;
-				this.user.linkedin = data.linkedin;
+				console.log(this.user)
+				const response = await fetch(`http://localhost:8080/developers/${this.user.internalNumber}`)
+				const data = await response.json()
+				this.user.firstName = data.firstName
+				this.user.lastName = data.lastName
+				this.user.email = data.email
+				this.user.internalNumber = data.internalNumber
 			} catch (error) {
-				console.log('Erreur lors de la récupération des données', error);
+				console.log('Erreur lors de la récupération des données', error)
 			}
 		},
 		onFileChange(event) {
-			const file = event.target.files[0];
+			const file = event.target.files[0]
 			if (file) {
-				this.picture = URL.createObjectURL(file);
-				this.user.picture = file;  
+				this.pictureProfil = URL.createObjectURL(file)
 			}
 		},
 		async updateProfile() {
-			const formData = new FormData();
-			formData.append('description', this.user.description);
-			formData.append('linkedin', this.user.linkedin);
+			const formData = new FormData()
+			formData.append('description', this.user.description)
+			formData.append('internalNumber', this.user.internalNumber)
 
-			if (this.picture) {
-				formData.append('picture', this.picture);  // Ajouter le fichier image à FormData
+			if (this.user.pictureProfil instanceof File) {
+				formData.append('pictureProfil', this.user.pictureProfil)
 			}
 
 			try {
-				const response = await fetch(`http://localhost:8080/developers/${this.user.internalNumber}`, {
+				const response = fetch(`http://localhost:8080/developers`, {
 					method: 'PATCH',
 					body: formData
-				});
-				if (response.ok) {
-					console.log('Profil mis à jour avec succès');
-				} else {
-					console.error('Échec de la mise à jour du profil');
-				}
+				})
 			} catch (error) {
-				console.error('Erreur lors de la mise à jour du profil', error);
+				console.error(error)
 			}
 		}
 	}
