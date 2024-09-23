@@ -78,12 +78,18 @@ export default {
 				})
 				this.newSkill = ''
 				this.newLevel = ''
+				this.emitSkills()
 			}
 		},
 		// Remove a skill
 		removeSkill(index) {
-			this.selectedSkills.splice(index, 1)
+			this.selectedSkills.splice(index, 1);
+			this.emitSkills();
 		},
+		emitSkills() {
+			this.$emit('update-skills', this.selectedSkills)
+		},
+
 		async getLevels() {
 			try {
 				const response = await fetch(`http://localhost:8080/levels`)
@@ -93,7 +99,8 @@ export default {
 			} catch {
 				console.error('Erreur lors de la récupération des niveaux:', error)
 			}
-		}, async getTechnicalSkills() {
+		},
+		async getTechnicalSkills() {
 			try {
 				const response = await fetch(`http://localhost:8080/topics/search?label=Java`)
 				const data = await response.json()
@@ -102,7 +109,7 @@ export default {
 			} catch {
 				console.error('Erreur lors de la récupération des niveaux:', error)
 			}
-		},
+		}
 	}
 }
 </script>
