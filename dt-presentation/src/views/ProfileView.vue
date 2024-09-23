@@ -2,19 +2,22 @@
 	<main>
 		<div class="container mt-5">
 			<form @submit.prevent="updateProfile">
-				<h1 class="text-center">{{ $t('Profile') }}</h1>
+				<h1 class="text-center">{{ $t('Profil') }}</h1>
 
 				<!-- Informations personnelles -->
 				<div>
 					<label for="personalInfo" class="form-label fs-5">{{
 						$t('Informations personnelles')
 					}}</label>
-					<div class="row mt-4 card bg-light p-4">
+					<div class="d-flex flex-row align-items-start mt-4 card bg-light p-4">
 						<!-- Picture and File input  -->
 						<div class="col-12 col-lg-3 d-flex flex-column align-items-center mb-3 mb-lg-0">
-							<!-- Picture -->
-							<div v-if="picture" class="profile-picture-preview mb-2">
-								<img :src="picture" alt="Profile" class="rounded-circle img-fluid" />
+            <!-- Picture -->
+							<div v-if="pictureProfil" class="profile-picture-preview mb-2">
+								<img 
+								:src="pictureProfil" 
+								alt="Profile" 
+								class="rounded-circle img-fluid" />
 							</div>
 
 							<div class="mb-2">
@@ -28,9 +31,9 @@
 						</div>
 
 						<!-- Input fields -->
-						<div class="col-12 col-lg-9">
+						<div>
 							<div class="row">
-								<div class="col-12 col-lg-3 mb-3">
+								<div class="col">
 									<input
 										v-model="user.lastName"
 										type="text"
@@ -39,7 +42,7 @@
 										disabled
 									/>
 								</div>
-								<div class="col-12 col-lg-3 mb-3">
+								<div class="col">
 									<input
 										v-model="user.firstName"
 										type="text"
@@ -48,7 +51,7 @@
 										disabled
 									/>
 								</div>
-								<div class="col-12 col-lg-3 mb-3">
+								<div class="col">
 									<input
 										v-model="user.email"
 										type="email"
@@ -57,9 +60,10 @@
 										disabled
 									/>
 								</div>
-								<div class="col-12 col-lg-2 mb-3">
+								<div class="col">
 									<input
 										v-model="user.internalNumber"
+										@change="handleFileUpload"
 										type="text"
 										class="form-control mb-3"
 										placeholder="Matricule"
@@ -71,7 +75,6 @@
 										<i class="fab fa-linkedin"></i>
 									</a>
 									<input v-model="user.linkedin" type="text" class="form-control" />
-									
 								</div>
 							</div>
 						</div>
@@ -88,9 +91,6 @@
 								id="description"
 								style="height: 100px"
 							></textarea>
-							<div v-if="descriptionError" class="mt-2 feedback fst-italic text-danger">
-								{{ descriptionError }}
-							</div>
 						</div>
 					</div>
 
@@ -101,7 +101,7 @@
 					<SoftSkills @update-soft-skills="updateSoftSkills" />
 
 					<div class="d-flex justify-content-center mt-3">
-						<button class="btn btn-primary col-12 col-lg-2">{{ $t('SOUMETTRE') }}</button>
+						<button class="btn btn-primary">{{ $t('SOUMETTRE') }}</button>
 					</div>
 				</div>
 			</form>
@@ -109,19 +109,19 @@
 	</main>
 </template>
 
-<script>
+<script >
 import TechnicalSkills from '@/components/TechnicalSkills.vue'
 import SoftSkills from '@/components/SoftSkills.vue'
 
 export default {
-	name: 'ProfileView',
+	name: 'ProfilView',
 	components: {
 		TechnicalSkills,
 		SoftSkills
 	},
 	data() {
 		return {
-			picture: null,
+			pictureProfil: null,
 			// users: [],
 			user: {
 				lastName: '',
@@ -220,3 +220,4 @@ export default {
 	border-color: red;
 }
 </style>
+
