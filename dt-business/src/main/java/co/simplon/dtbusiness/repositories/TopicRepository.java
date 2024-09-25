@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @Repository
 public interface TopicRepository extends JpaRepository<Topic, Long> {
-    List<TopicView> findProjectedByNameAndIsTechnical(String name, boolean isTechnical);
+    List<TopicView> findProjectedByNameIgnoreCaseStartingWithAndIsTechnical(String name, boolean isTechnical);
 
     Optional<Topic> findByName(String name);
 }

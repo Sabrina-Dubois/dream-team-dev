@@ -18,13 +18,13 @@ public class TopicServiceImpl implements TopicService {
     }
 
     @Override
-    public List<TopicView> findTopicTechnicalsByName(String name) {
-        return repo.findProjectedByNameAndIsTechnical(name, true);
+    public List<TopicView> findTopicTechnicalsByNameStartingWith(String name) {
+        return repo.findProjectedByNameIgnoreCaseStartingWithAndIsTechnical(name, true);
     }
 
     @Override
-    public List<TopicView> findTopicBusinessAndSoftsByName(String name) {
-        return repo.findProjectedByNameAndIsTechnical(name, false);
+    public List<TopicView> findTopicBusinessAndSoftsByNameStartingWith(String name) {
+        return repo.findProjectedByNameIgnoreCaseStartingWithAndIsTechnical(name, false);
     }
 
     @Override

@@ -1,53 +1,34 @@
 <template>
-	<label for="TechnicalSkills" class="form-label fs-5 mb-2 mt-4">{{
-		$t('Compétences Techniques')
-	}}</label>
+	<label for="TechnicalSkills" class="form-label fs-5 mb-2 mt-4">{{ $t('Compétences Techniques') }}</label>
 	<div class="card bg-light">
 		<div class="card-body d-flex flex-column">
 			<div class="mb-2">
-				<span v-for="(skill, index) in selectedSkills" :key="index" class="badge bg-primary me-2">
-					{{ skill.name }} - {{ skill.level }}
-					<button
-						type="button"
-						class="btn-close btn-close-white btn-sm ms-2"
-						aria-label="Remove"
-						@click="removeSkill(index)"
-					></button>
+				<span v-for="(skill, index) in selectedSkills" :key="index" class="badge bg-primary me-2"> {{ skill.name
+					}} - {{ skill.level }} <button type="button" class="btn-close btn-close-white btn-sm ms-2"
+						aria-label="Remove" @click="removeSkill(index)"></button>
 				</span>
 			</div>
-
 			<!-- Select skills -->
 			<div class="input-group mb-3">
 				<input v-model="newSkill" class="form-control" list="datalistTechnicalSkills" />
 				<datalist id="datalistTechnicalSkills">
-					<option
-						v-for="(skill, index) in availableTechnicalSkills"
-						:key="index"
-						:value="skill.name"
-					></option>
+					<option v-for="(skill, index) in availableTechnicalSkills" :key="index" :value="skill.name">
+					</option>
 					<!-- <option value="JAVA"></option>
 					<option value="JS"></option>
 					<option value="PYTHON"></option> -->
 				</datalist>
-
 				<select v-model="newLevel" class="form-select col-3" aria-label="Select level">
 					<option selected>Level</option>
 					<option v-for="(level, index) in levels" :key="index">{{ $t(level.name) }}</option>
 				</select>
-
 				<!-- Add new skill -->
-				<button
-					class="btn btn-outline-secondary ms-2 rounded-circle"
-					@click="addSkill"
-					style="border-radius: 50%"
-				>
-					+
-				</button>
+				<button class="btn btn-outline-secondary ms-2 rounded-circle" @click="addSkill"
+					style="border-radius: 50%"> + </button>
 			</div>
 		</div>
 	</div>
 </template>
-
 <script>
 export default {
 	name: 'TechnicalSkills',
@@ -113,7 +94,6 @@ export default {
 	}
 }
 </script>
-
 <style scoped>
 .badge {
 	display: inline-flex;
