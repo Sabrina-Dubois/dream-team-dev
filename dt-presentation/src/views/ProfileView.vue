@@ -92,7 +92,7 @@
 								style="height: 100px"
 							></textarea>
 						</div>
-					</div>
+					</div> 
 
 					<!-- Technical Skills -->
 					<TechnicalSkills @update-skills="updateTechnicalSkills" />
