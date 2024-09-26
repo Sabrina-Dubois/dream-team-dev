@@ -25,9 +25,6 @@
 						:key="index"
 						:value="skill.name"
 					></option>
-					<!-- <option value="JAVA"></option>
-					<option value="JS"></option>
-					<option value="PYTHON"></option> -->
 				</datalist>
 
 				<select v-model="newLevel" class="form-select col-3" aria-label="Select level">
