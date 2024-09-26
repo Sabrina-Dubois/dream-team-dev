@@ -1,0 +1,45 @@
+<script>
+import DevProfileBrief from '@/components/DevProfileBrief.vue'
+
+export default {
+    components:{
+        DevProfileBrief
+    },
+    data() {
+        return {
+            Developers: []
+        }
+    },
+    mounted() {
+        this.getDevelopers()
+    },
+    methods: {
+        async getDevelopers() {
+            try {
+                const response = await fetch(`http://localhost:8080/developers`)
+                const data = await response.json()
+                this.Developers = data
+                console.log(this.Developers)
+            } catch {
+                console.error('Erreur lors de la récupération des niveaux:', error)
+            }
+        }
+    }
+}
+</script>
+
+<template>
+    <main>
+        <div class="container mt-5">
+            <h1 class="text-center">{{ $t('Search dev title') }}</h1>
+            <section>
+                <h2>{{ $t('Search results title') }}</h2>
+                <div class="text-center w-75 mx-5">
+                    <DevProfileBrief v-for="developer in Developers" :developer="developer" />
+                </div>
+            </section>
+        </div>
+    </main>
+</template>
+
+<style scoped></style>

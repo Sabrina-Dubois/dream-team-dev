@@ -1,11 +1,14 @@
 {
-  "Profil": "Profil",
-  "Informations personnelles": "Informations personnelles",
-  "Description": "Description",
-  "Soft Skills": "Soft Skills",
-  "SOUMETTRE": "SOUMETTRE",
-  "Compétences techniques": "Compétences techniques",
-  "Choisir un fichier": "Choisir un fichier",
-  "Aucun fichier choisi": "Aucun fichier choisi",
-  "Level": "Niveau"
+	"Profil": "Profil",
+	"Informations personnelles": "Informations personnelles",
+	"Description": "Description",
+	"Soft Skills": "Soft Skills",
+	"SOUMETTRE": "SOUMETTRE",
+	"Compétences techniques": "Compétences techniques",
+	"Choisir un fichier": "Choisir un fichier",
+	"Aucun fichier choisi": "Aucun fichier choisi",
+	"Level": "Niveau",
+	"Search dev title": "Rechercher des développeurs",
+	"Search criteria title": "Critères de Rechercher",
+	"Search results title": "List Developers"
 }
