@@ -1,0 +1,24 @@
+package co.simplon.dtbusiness.controllers;
+
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import co.simplon.dtbusiness.entities.Filter;
+
+@RequestMapping("/filters")
+@RestController
+public class FilterController {
+	
+
+
+		
+		@PostMapping("/create")
+	    public void createFilter(@RequestBody Filter filter) {
+	        // Sauvegarde du filtre dans la base de données
+	        // Filter savedFilter = filterService.save(filter);
+	        
+	    }
+
+}
