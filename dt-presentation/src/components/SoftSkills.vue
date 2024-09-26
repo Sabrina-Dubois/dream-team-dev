@@ -50,15 +50,23 @@
 <script>
 export default {
   name: 'SoftSkills',
+  props: {
+    getSoftSkillsSelect: {
+      type: Array,
+      required: true
+    }
+  },
   data() {
     return {
       selectedSkills: [],
       newSkill: '',
-      availableSoftSkills: []
+      availableSoftSkills: [],
+
     }
   },
   mounted() {
     this.getSoftSkills()
+    this.getSkillUser()
   },
   methods: {
     // Function
@@ -71,6 +79,10 @@ export default {
         this.newSkill = ''
         this.emitSkills()
       }
+    },
+    async getSkillUser() {
+      console.log(this.getSoftSkillsSelect);
+      this.selectedSkills = [...this.getSoftSkillsSelect]
     },
     // Remove a skill
     removeSkill(index) {
@@ -91,20 +103,6 @@ export default {
         console.error('Erreur lors de la récupération des soft skills:', error)
       }
     },
-    async updateSoftSkills() {
-      const formData = new FormData()
-      formData.append('softSkills', JSON.stringify(this.user.softSkills))
-      try {
-        const response = await fetch(`http://localhost:8080/developers`, {
-          method: 'PATCH',
-          body: formData
-        })
-        const data = await response.json()
-        console.log('Profil mis à jour avec succès', data)
-      } catch (error) {
-        console.error(error)
-      }
-    }
   }
 }
 </script>

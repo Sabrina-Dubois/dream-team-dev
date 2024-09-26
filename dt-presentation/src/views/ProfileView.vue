@@ -95,10 +95,10 @@
           </div>
 
           <!-- Technical Skills -->
-          <TechnicalSkills @update-skills="updateTechnicalSkills"/>
+          <TechnicalSkills @update-skills="updateTechnicalSkills" :getTechnicalSkillsSelect="fetchTechnicalSkills"/>
 
           <!-- Soft Skills -->
-          <SoftSkills @update-soft-skills="updateSoftSkills"/>
+          <SoftSkills @update-soft-skills="updateSoftSkills" :getSoftSkillsSelect="fetchSoftSkills"/>
 
           <div class="d-flex justify-content-center mt-3">
             <button class="btn btn-primary">{{ $t('SOUMETTRE') }}</button>
@@ -114,7 +114,7 @@ import TechnicalSkills from '@/components/TechnicalSkills.vue'
 import SoftSkills from '@/components/SoftSkills.vue'
 
 export default {
-  name: 'ProfilView',
+  name: 'ProfileView',
   components: {
     TechnicalSkills,
     SoftSkills
@@ -128,27 +128,35 @@ export default {
         firstName: '',
         email: '',
         internalNumber: 'abc1234',
-        description: ''
+        description: '',
+        linkedin: '',
       },
       descriptionError: '',
       technicalSkills: [],
-      softSkills: []
+      softSkills: [],
+      fetchTechnicalSkills: [],
+      fetchSoftSkills: [],
     }
   },
-  mounted() {
+  beforeMount() {
     this.getProfile()
   },
   methods: {
     async getProfile() {
       try {
         const response = await fetch(`http://localhost:8080/developers/${this.user.internalNumber}`)
-        const data = await response.json()
-        this.user.firstName = data.firstName
-        this.user.lastName = data.lastName
-        this.user.email = data.email
-        this.user.internalNumber = data.internalNumber
-        this.user.description = data.description
-        this.user.linkedin = data.linkedin
+        const profile = await response.json()
+        this.user.firstName = profile.firstName
+        this.user.lastName = profile.lastName
+        this.user.email = profile.email
+        this.user.internalNumber = profile.internalNumber
+        this.user.description = profile.description
+        this.user.linkedin = profile.linkedin
+        const skills = profile.skills
+        this.fetchTechnicalSkills = skills.filter((skill) => skill.isTechnical === true)
+        this.fetchSoftSkills = skills.filter((skill) => skill.isTechnical === false)
+        console.log(this.fetchTechnicalSkills)
+        console.log(this.fetchSoftSkills)
       } catch (error) {
         console.log('Erreur lors de la récupération des données', error)
       }

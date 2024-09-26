@@ -5,8 +5,8 @@
       <div class="mb-2">
 				<span v-for="(skill, index) in selectedSkills" :key="index" class="badge bg-primary me-2"> {{
             skill.name
-          }} - {{ skill.level }} <button type="button" class="btn-close btn-close-white btn-sm ms-2"
-                                         aria-label="Remove" @click="removeSkill(index)"></button>
+          }} - {{ skill.levelName }} <button type="button" class="btn-close btn-close-white btn-sm ms-2"
+                                             aria-label="Remove" @click="removeSkill(index)"></button>
 				</span>
       </div>
       <!-- Select skills -->
@@ -39,21 +39,29 @@
 <script>
 export default {
   name: 'TechnicalSkills',
+  props: {
+    getTechnicalSkillsSelect: {
+      type: Array,
+      required: true
+    },
+  },
   data() {
     return {
       selectedSkills: [],
       newSkill: '',
       newLevel: '',
       levels: [],
-      availableTechnicalSkills: []
+      availableTechnicalSkills: [],
     }
   },
   mounted() {
+    this.getSkillUser()
     this.getLevels()
     this.getTechnicalSkills()
   },
   methods: {
     // Function
+
     addSkill() {
       if (
           this.newSkill &&
@@ -79,6 +87,11 @@ export default {
       this.$emit('update-skills', this.selectedSkills)
     },
 
+    getSkillUser() {
+      console.log(this.getTechnicalSkillsSelect);
+      this.selectedSkills = [...this.getTechnicalSkillsSelect]
+    },
+
     async getLevels() {
       try {
         const response = await fetch(`http://localhost:8080/levels`)
@@ -89,6 +102,7 @@ export default {
         console.error('Erreur lors de la récupération des niveaux:', error)
       }
     },
+
     async getTechnicalSkills() {
       try {
         const response = await fetch(`http://localhost:8080/topics/search?label=${this.newSkill}`)
@@ -97,6 +111,7 @@ export default {
         console.log(this.availableTechnicalSkills)
       } catch {
         console.error('Erreur lors de la récupération des niveaux:', error)
+
       }
     },
   }
