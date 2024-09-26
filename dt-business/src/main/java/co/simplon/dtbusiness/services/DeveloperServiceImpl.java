@@ -1,6 +1,7 @@
 package co.simplon.dtbusiness.services;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -199,7 +200,19 @@ public class DeveloperServiceImpl implements DeveloperService {
 
     @Override
     public List<DevProfileBriefView> findAllDevelopersByLastNameFirstNameTechnicalSkillAndLevel(String firstName,
-	    String lastName) {
-	return repos.findAllProjectedByFirstNameIgnoreCaseAndLastNameIgnoreCase(firstName, lastName);
+	    String lastName, String technicalTopic, String level) {
+	List<Developer> devs = repos.findAllByFirstNameLastNameTehnicalSkillAndLevel(firstName, lastName,
+		technicalTopic, level);
+	return getDevProfileBriefViews(devs);
+    }
+
+    private List<DevProfileBriefView> getDevProfileBriefViews(List<Developer> devs) {
+	List<DevProfileBriefView> devsList = new ArrayList<DevProfileBriefView>();
+	devs.forEach(dev -> devsList.add(getDevProfileBriefView(dev)));
+	return devsList;
+    }
+
+    private static DevProfileBriefView getDevProfileBriefView(Developer dev) {
+	return new DevProfileBriefView(dev.getFirstName(), dev.getLastName(), dev.getEmail(), dev.getPicture());
     }
 }

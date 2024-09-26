@@ -46,8 +46,9 @@ public class DeveloperController {
 
     @GetMapping("/search")
     public List<DevProfileBriefView> findAllDevelopersByLastNameFirstNameTechnicalSkillAndLevel(
-	    @RequestParam(required = false) String firstName, @RequestParam(required = false) String lastName) {
-	return service.findAllDevelopersByLastNameFirstNameTechnicalSkillAndLevel(firstName, lastName);
+	    @RequestParam(required = false) String firstName, @RequestParam(required = false) String lastName,
+	    @RequestParam(required = false) String technicalTopic, @RequestParam(required = false) String level) {
+	return service.findAllDevelopersByLastNameFirstNameTechnicalSkillAndLevel(firstName, lastName, technicalTopic,
+		level);
     }
-
 }

@@ -18,6 +18,5 @@ public interface DeveloperService {
     Skill saveSkill(Skill skill);
 
     List<DevProfileBriefView> findAllDevelopersByLastNameFirstNameTechnicalSkillAndLevel(String firstName,
-	    String lastName);
-
+	    String lastName, String technicalTopic, String level);
 }
