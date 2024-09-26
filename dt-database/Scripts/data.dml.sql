@@ -3,6 +3,8 @@ DELETE FROM t_developers ;
 DELETE FROM t_topics ;
 DELETE FROM t_levels ;
 
+
+
 INSERT INTO t_levels (level_name) VALUES 
 	('Junior'), ('Senior'), ('Expert');
 
@@ -20,7 +22,7 @@ INSERT INTO t_topics (skill_name, is_technical_skill ) VALUES
 
 INSERT INTO t_skills(dev_id, topic_id, level_id ) VALUES 
 	(1,1,2),
-(1,2, null),
-(2,1,1),
-(3,1,3);
+  (1,2, null),
+  (2,1,1),
+  (3,1,3);
 

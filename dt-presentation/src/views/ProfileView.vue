@@ -12,7 +12,7 @@
 					<div class="d-flex flex-row align-items-start mt-4 card bg-light p-4">
 						<!-- Picture and File input  -->
 						<div class="col-12 col-lg-3 d-flex flex-column align-items-center mb-3 mb-lg-0">
-            <!-- Picture -->
+            			<!-- Picture -->
 							<div v-if="pictureProfil" class="profile-picture-preview mb-2">
 								<img 
 								:src="pictureProfil" 
