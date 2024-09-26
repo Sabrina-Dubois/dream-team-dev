@@ -4,11 +4,14 @@ import co.simplon.dtbusiness.dtos.out.TopicView;
 import co.simplon.dtbusiness.entities.Topic;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface TopicService {
-    List<TopicView> findTopicTechnicalsByName(String name);
-    List<TopicView> findTopicBusinessAndSoftsByName(String name);
+    List<TopicView> findTopicTechnicalsByNameStartingWith(String name);
 
-     Topic findByName(String name);
+    List<TopicView> findTopicBusinessAndSoftsByNameStartingWith(String name);
+
+    Optional<Topic> findByName(String name);
+
     Topic saveTopic(Topic topic);
 }

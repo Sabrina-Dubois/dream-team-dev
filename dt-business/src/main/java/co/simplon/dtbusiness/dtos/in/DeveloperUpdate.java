@@ -1,5 +1,6 @@
 package co.simplon.dtbusiness.dtos.in;
 
+import org.springframework.web.multipart.MultipartFile;
 import java.util.Set;
 
 import org.springframework.http.MediaType;
@@ -15,5 +16,4 @@ public record DeveloperUpdate(@Size(max = 5000) String description, @FileType(ty
 	MediaType.IMAGE_PNG_VALUE }) @FileSize(max = FileSize.ONE_MB) MultipartFile picture,
 	@Size(max = 200) @Pattern(regexp = "^(https?://)?(www\\.)?linkedin\\.com/.*$", message = "Invalid LinkedIn URL") String linkedin,
 	Set<SkillCreateOrAdd> skills){
-
 }
