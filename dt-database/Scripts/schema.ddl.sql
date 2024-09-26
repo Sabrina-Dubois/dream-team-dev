@@ -1,6 +1,7 @@
 DROP TABLE IF EXISTS t_skills;
 DROP TABLE IF EXISTS t_developers;
 DROP TABLE IF EXISTS t_topics;
+DROP TABLE IF EXISTS t_filters;
 DROP TABLE IF EXISTS t_levels;
 
 CREATE TABLE t_developers(
@@ -41,5 +42,15 @@ CREATE TABLE t_skills(
    	CONSTRAINT t_skills_developers_fkey  FOREIGN KEY(dev_id) REFERENCES t_developers(id_dev),
    	CONSTRAINT t_skills_topics_fkey FOREIGN KEY(topic_id) REFERENCES t_topics(id_topic),
    	CONSTRAINT t_skills_levels_fkey FOREIGN KEY(level_id) REFERENCES t_levels(id_level)
+);
+
+CREATE TABLE t_filters(
+id_filter INT GENERATED ALWAYS AS IDENTITY,
+filter_name VARCHAR(50) NOT NULL,
+keyword VARCHAR(20),
+first_topic VARCHAR(100),
+second_topic VARCHAR(100),
+CONSTRAINT t_filters_pkey PRIMARY KEY (id_filter),
+CONSTRAINT t_filters_ukey UNIQUE (first_topic, second_topic,keyword)
 );
 

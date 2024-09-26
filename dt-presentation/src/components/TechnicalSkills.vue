@@ -60,8 +60,6 @@ export default {
     this.getTechnicalSkills()
   },
   methods: {
-    // Function
-
     addSkill() {
       if (
           this.newSkill &&
