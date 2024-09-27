@@ -42,7 +42,7 @@
             <div class="text-center mt-3">
                 <button
                     v-if="filters.length < 5"
-                    @click="addFilter"
+                    @click="add"
                     class="btn btn-outline-primary ms-2 rounded-circle"
                 >
                     +
@@ -51,7 +51,7 @@
 
             <!-- Submit button -->
             <div class="text-center mt-5">
-                <button @click="submitFilters" class="btn btn-primary mt-3">Validate</button>
+                <button @click="submit" class="btn btn-primary mt-3">Validate</button>
             </div>
         </div>
     </main>
@@ -73,7 +73,7 @@ export default {
         }
     },
     methods: {
-        addFilter() {
+        add() {
             if (this.filters.length < 5) {
                 this.filters.push({
                     name: '',
@@ -83,7 +83,7 @@ export default {
             }
         },
 
-        async submitFilters() {
+        async submit() {
             try {
                 for (const filter of this.filters) {
                     const response = await fetch('http://localhost:8080/filters/create', {
