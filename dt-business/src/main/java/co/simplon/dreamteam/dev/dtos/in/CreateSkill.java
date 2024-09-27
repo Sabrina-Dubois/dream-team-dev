@@ -1,4 +1,4 @@
-package co.simplon.dreamteam.developers.dtos.in;
+package co.simplon.dreamteam.dev.dtos.in;
 
-public record CreateOrAddSkill(String name, boolean isTechnical, String levelName) {
+public record CreateSkill(String name, boolean isTechnical, String levelName) {
 }

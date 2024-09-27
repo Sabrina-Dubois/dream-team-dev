@@ -1,10 +1,10 @@
-package co.simplon.dreamteam.developers.dtos.in;
+package co.simplon.dreamteam.dev.dtos.in;
 
 import org.springframework.http.MediaType;
 import org.springframework.web.multipart.MultipartFile;
 
-import co.simplon.dreamteam.developers.dtos.validators.FileSize;
-import co.simplon.dreamteam.developers.dtos.validators.FileType;
+import co.simplon.dreamteam.dev.dtos.validators.FileSize;
+import co.simplon.dreamteam.dev.dtos.validators.FileType;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 

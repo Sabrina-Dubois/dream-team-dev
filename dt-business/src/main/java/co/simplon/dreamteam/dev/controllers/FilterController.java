@@ -1,11 +1,11 @@
-package co.simplon.dreamteam.developers.controllers;
+package co.simplon.dreamteam.dev.controllers;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import co.simplon.dreamteam.developers.entities.Filter;
+import co.simplon.dreamteam.dev.entities.Filter;
 
 @RequestMapping("/filters")
 @RestController

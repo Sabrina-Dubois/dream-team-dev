@@ -1,4 +1,4 @@
-package co.simplon.dreamteam.developers.services;
+package co.simplon.dreamteam.dev.services;
 
 import java.io.File;
 import java.util.Collection;
@@ -13,18 +13,18 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import co.simplon.dreamteam.developers.dtos.in.CreateOrAddSkill;
-import co.simplon.dreamteam.developers.dtos.in.UpdateDeveloper;
-import co.simplon.dreamteam.developers.dtos.out.DeveloperBriefView;
-import co.simplon.dreamteam.developers.dtos.out.DeveloperView;
-import co.simplon.dreamteam.developers.dtos.out.SkillsView;
-import co.simplon.dreamteam.developers.entities.Developer;
-import co.simplon.dreamteam.developers.entities.Level;
-import co.simplon.dreamteam.developers.entities.Skill;
-import co.simplon.dreamteam.developers.entities.Topic;
-import co.simplon.dreamteam.developers.repositories.DeveloperRepository;
-import co.simplon.dreamteam.developers.repositories.LevelRepository;
-import co.simplon.dreamteam.developers.repositories.SkillRepository;
+import co.simplon.dreamteam.dev.dtos.in.CreateSkill;
+import co.simplon.dreamteam.dev.dtos.in.UpdateDeveloper;
+import co.simplon.dreamteam.dev.dtos.out.DeveloperItemView;
+import co.simplon.dreamteam.dev.dtos.out.DeveloperView;
+import co.simplon.dreamteam.dev.dtos.out.SkillsView;
+import co.simplon.dreamteam.dev.entities.Developer;
+import co.simplon.dreamteam.dev.entities.Level;
+import co.simplon.dreamteam.dev.entities.Skill;
+import co.simplon.dreamteam.dev.entities.Topic;
+import co.simplon.dreamteam.dev.repositories.DeveloperRepository;
+import co.simplon.dreamteam.dev.repositories.LevelRepository;
+import co.simplon.dreamteam.dev.repositories.SkillRepository;
 
 @Transactional
 @Service
@@ -46,7 +46,7 @@ public class DeveloperServiceImpl implements DeveloperService {
 	}
 
 	@Override
-	public List<DeveloperBriefView> findAllDeveloperBriefs() {
+	public List<DeveloperItemView> findAllDeveloperItems() {
 		return repos.findAllProjectedBy();
 	}
 
@@ -109,7 +109,7 @@ public class DeveloperServiceImpl implements DeveloperService {
 	}
 
 	@Override
-	public void updateDeveloper(String internalNumber, UpdateDeveloper developer, List<CreateOrAddSkill> skillsJson) {
+	public void updateDeveloper(String internalNumber, UpdateDeveloper developer, List<CreateSkill> skillsJson) {
 
 		Developer entity = repos.findProjectedByInternalNumber(internalNumber);
 		entity.setDescription(developer.description());
@@ -118,10 +118,10 @@ public class DeveloperServiceImpl implements DeveloperService {
 
 		Set<Skill> skillsAddDev = new HashSet<>();
 
-		Collection<CreateOrAddSkill> skillsDev = skillsJson;
+		Collection<CreateSkill> skillsDev = skillsJson;
 
 		if (skillsDev != null) {
-			for (CreateOrAddSkill skill : skillsDev) {
+			for (CreateSkill skill : skillsDev) {
 				Optional<Topic> topic = topicService.findByName(skill.name());
 				if (topic.isEmpty()) {
 					if (skill.isTechnical()) {
@@ -198,7 +198,7 @@ public class DeveloperServiceImpl implements DeveloperService {
 	}
 
 	@Override
-	public List<DeveloperBriefView> findAllDevelopersByLastNameFirstNameTechnicalSkillAndLevel(String firstName,
+	public List<DeveloperItemView> findAllDevelopersByLastNameFirstNameTechnicalSkillAndLevel(String firstName,
 			String lastName) {
 		return repos.findAllProjectedByFirstNameIgnoreCaseAndLastNameIgnoreCase(firstName, lastName);
 	}

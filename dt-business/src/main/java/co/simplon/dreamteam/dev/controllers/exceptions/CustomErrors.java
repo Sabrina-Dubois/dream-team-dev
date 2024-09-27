@@ -1,4 +1,4 @@
-package co.simplon.dreamteam.developers.controllers.exceptions;
+package co.simplon.dreamteam.dev.controllers.exceptions;
 
 import java.util.ArrayList;
 import java.util.Collection;

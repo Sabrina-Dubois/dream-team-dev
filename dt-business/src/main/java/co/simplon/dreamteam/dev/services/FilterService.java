@@ -1,6 +1,6 @@
-package co.simplon.dreamteam.developers.services;
+package co.simplon.dreamteam.dev.services;
 
-import co.simplon.dreamteam.developers.dtos.out.FilterView;
+import co.simplon.dreamteam.dev.dtos.out.FilterView;
 
 public interface FilterService {
 	FilterView findProjectBy();

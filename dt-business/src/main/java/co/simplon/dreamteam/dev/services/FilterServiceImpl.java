@@ -1,10 +1,10 @@
-package co.simplon.dreamteam.developers.services;
+package co.simplon.dreamteam.dev.services;
 
 import org.springframework.stereotype.Service;
 
-import co.simplon.dreamteam.developers.dtos.out.FilterView;
-import co.simplon.dreamteam.developers.entities.Filter;
-import co.simplon.dreamteam.developers.repositories.FilterRepository;
+import co.simplon.dreamteam.dev.dtos.out.FilterView;
+import co.simplon.dreamteam.dev.entities.Filter;
+import co.simplon.dreamteam.dev.repositories.FilterRepository;
 
 @Service
 public class FilterServiceImpl implements FilterService {

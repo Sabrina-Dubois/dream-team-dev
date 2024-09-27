@@ -1,4 +1,4 @@
-package co.simplon.dreamteam.developers;
+package co.simplon.dreamteam.dev;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

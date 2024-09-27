@@ -1,4 +1,4 @@
-package co.simplon.dreamteam.developers.dtos.validators;
+package co.simplon.dreamteam.dev.dtos.validators;
 
 import org.springframework.web.multipart.MultipartFile;
 

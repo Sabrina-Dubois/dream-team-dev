@@ -1,11 +1,11 @@
-package co.simplon.dreamteam.developers.services;
+package co.simplon.dreamteam.dev.services;
 
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
-import co.simplon.dreamteam.developers.dtos.out.TopicView;
-import co.simplon.dreamteam.developers.entities.Topic;
-import co.simplon.dreamteam.developers.repositories.TopicRepository;
+import co.simplon.dreamteam.dev.dtos.out.TopicView;
+import co.simplon.dreamteam.dev.entities.Topic;
+import co.simplon.dreamteam.dev.repositories.TopicRepository;
 
 import java.util.List;
 import java.util.Optional;

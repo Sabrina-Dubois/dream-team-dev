@@ -1,4 +1,4 @@
-package co.simplon.dreamteam.developers.entities;
+package co.simplon.dreamteam.dev.entities;
 
 import jakarta.persistence.*;
 

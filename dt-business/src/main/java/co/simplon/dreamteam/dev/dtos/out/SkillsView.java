@@ -1,4 +1,4 @@
-package co.simplon.dreamteam.developers.dtos.out;
+package co.simplon.dreamteam.dev.dtos.out;
 
 public record SkillsView(
         Long id,

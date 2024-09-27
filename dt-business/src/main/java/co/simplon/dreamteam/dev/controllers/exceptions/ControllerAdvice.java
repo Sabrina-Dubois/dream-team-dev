@@ -1,4 +1,4 @@
-package co.simplon.dreamteam.developers.controllers.exceptions;
+package co.simplon.dreamteam.dev.controllers.exceptions;
 
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
