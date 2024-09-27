@@ -96,7 +96,7 @@ export default {
         const data = await response.json()
         this.levels = data
         console.log(this.levels)
-      } catch {
+      } catch (error) {
         console.error('Erreur lors de la récupération des niveaux:', error)
       }
     },
@@ -107,7 +107,7 @@ export default {
         const data = await response.json()
         this.availableTechnicalSkills = data
         console.log(this.availableTechnicalSkills)
-      } catch {
+      } catch (error) {
         console.error('Erreur lors de la récupération des niveaux:', error)
 
       }

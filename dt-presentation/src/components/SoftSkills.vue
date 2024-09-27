@@ -99,7 +99,7 @@ export default {
         )
         this.availableSoftSkills = await response.json()
         console.log(this.availableSoftSkills)
-      } catch {
+      } catch (error) {
         console.error('Erreur lors de la récupération des soft skills:', error)
       }
     },
