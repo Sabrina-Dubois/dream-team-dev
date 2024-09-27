@@ -1,10 +1,10 @@
 <script>
-import DevProfileBrief from '@/components/DevProfileBrief.vue'
+import DeveloperItem from '@/components/DeveloperItem.vue';
 import SearchCriteria from '@/components/SearchCriteria.vue';
 
 export default {
     components:{
-        DevProfileBrief,
+        DeveloperItem,
         SearchCriteria
     },
     data() {
