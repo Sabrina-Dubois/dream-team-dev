@@ -38,7 +38,7 @@ export default {
             <section>
                 <h2>{{ $t('Search results title') }}</h2>
                 <div class="text-center w-75 mx-5">
-                    <DevProfileBrief v-for="developer in Developers" :developer="developer" />
+                    <DeveloperItem v-for="developer in Developers" :developer="developer" />
                 </div>
             </section>
         </div>
