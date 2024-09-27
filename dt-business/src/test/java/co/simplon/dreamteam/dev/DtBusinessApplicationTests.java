@@ -1,4 +1,4 @@
-package co.simplon.dtbusiness;
+package co.simplon.dreamteam.dev;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

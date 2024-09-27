@@ -1,6 +1,6 @@
 <script>
     export default{
-        name: 'DevProfileBrief',
+        name: 'DeveloperItem',
         props: {
             developer:{
                 firstName: '',

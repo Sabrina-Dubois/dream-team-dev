@@ -18,6 +18,6 @@ public interface DeveloperService {
     Skill saveSkill(Skill skill);
 
     List<DeveloperItemView> findAllDevelopersByLastNameFirstNameTechnicalSkillAndLevel(String firstName,
-	    String lastName);
+	    String lastName, String technicalTopic, String level);
 
 }
