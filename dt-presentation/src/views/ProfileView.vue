@@ -200,14 +200,13 @@ export default {
 			formData.append(`skills`, skillsBlob)
 
 			try {
-				const response = await fetch(
+				await fetch(
 					`http://localhost:8080/developers/${this.user.internalNumber}`,
 					{
 						method: 'PATCH',
 						body: formData
 					}
 				)
-				//const data = await response.json()
 				console.log('Profil mis à jour avec succès')
 			} catch (error) {
 				console.error('Erreur lors de la mise à jour du profil', error)
