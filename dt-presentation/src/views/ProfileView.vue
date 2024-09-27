@@ -84,7 +84,7 @@
 							<textarea
 								v-model="user.description"
 								@input="validate"
-								class="{'form-control' : true, 'error':descriptionError"
+								class="'form-control' : true, 'error':descriptionError"
 								id="description"
 								style="height: 100px"
 							></textarea>
@@ -94,13 +94,13 @@
 					<!-- Technical Skills -->
 					<TechnicalSkills
 						@update-skills="updateTechnicalSkills"
-						:getTechnicalSkillsSelect="fetchTechnicalSkills"
+						:getTechnicalSkillsSelect="userTechnicalSkills"
 					/>
 
 					<!-- Soft Skills -->
 					<SoftSkills
 						@update-soft-skills="updateSoftSkills"
-						:getSoftSkillsSelect="fetchSoftSkills"
+						:getSoftSkillsSelect="userSoftSkills"
 					/>
 
 					<div class="d-flex justify-content-center mt-3">
@@ -137,8 +137,8 @@ export default {
 			descriptionError: '',
 			technicalSkills: [],
 			softSkills: [],
-			fetchTechnicalSkills: [],
-			fetchSoftSkills: []
+			userTechnicalSkills: [],
+			userSoftSkills: []
 		}
 	},
 	beforeMount() {
@@ -156,10 +156,10 @@ export default {
 				this.user.description = profile.description
 				this.user.linkedin = profile.linkedin
 				const skills = profile.skills
-				this.fetchTechnicalSkills = skills.filter((skill) => skill.isTechnical === true)
-				this.fetchSoftSkills = skills.filter((skill) => skill.isTechnical === false)
-				console.log(this.fetchTechnicalSkills)
-				console.log(this.fetchSoftSkills)
+				this.userTechnicalSkills = skills.filter((skill) => skill.isTechnical === true)
+				this.userSoftSkills = skills.filter((skill) => skill.isTechnical === false)
+				console.log(this.userTechnicalSkills)
+				console.log(this.userSoftSkills)
 			} catch (error) {
 				console.log('Erreur lors de la récupération des données', error)
 			}
@@ -207,7 +207,7 @@ export default {
 						body: formData
 					}
 				)
-				// const data = await response.json()
+				//const data = await response.json()
 				console.log('Profil mis à jour avec succès')
 			} catch (error) {
 				console.error('Erreur lors de la mise à jour du profil', error)
