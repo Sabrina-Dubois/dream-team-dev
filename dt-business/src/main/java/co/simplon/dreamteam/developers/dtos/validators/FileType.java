@@ -16,11 +16,11 @@ import jakarta.validation.Payload;
 @Constraint(validatedBy = FileTypeValidator.class)
 @Documented
 public @interface FileType {
-    String message() default "Merci de ne pas attache un image avec type jpn, jpec or gif ";
+	String message() default "Merci d'envoyer une image avec type jpn, jpec ou gif ";
 
-    String[] types() default { MediaType.ALL_VALUE };
+	String[] types() default { MediaType.ALL_VALUE };
 
-    Class<?>[] groups() default {};
+	Class<?>[] groups() default {};
 
-    Class<? extends Payload>[] payload() default {};
+	Class<? extends Payload>[] payload() default {};
 }

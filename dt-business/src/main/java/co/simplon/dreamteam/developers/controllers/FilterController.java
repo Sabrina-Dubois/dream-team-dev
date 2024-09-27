@@ -10,15 +10,9 @@ import co.simplon.dreamteam.developers.entities.Filter;
 @RequestMapping("/filters")
 @RestController
 public class FilterController {
-	
 
-
-		
-		@PostMapping("/create")
-	    public void createFilter(@RequestBody Filter filter) {
-	        // Sauvegarde du filtre dans la base de données
-	        // Filter savedFilter = filterService.save(filter);
-	        
-	    }
+	@PostMapping("/create")
+	public void createFilter(@RequestBody Filter filter) {
+	}
 
 }

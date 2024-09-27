@@ -118,10 +118,10 @@ public class DeveloperServiceImpl implements DeveloperService {
 
 		Set<Skill> skillsAddDev = new HashSet<>();
 
-		Collection<CreateOrAddSkill> skillsdev = skillsJson;
+		Collection<CreateOrAddSkill> skillsDev = skillsJson;
 
-		if (skillsdev != null) {
-			for (CreateOrAddSkill skill : skillsdev) {
+		if (skillsDev != null) {
+			for (CreateOrAddSkill skill : skillsDev) {
 				Optional<Topic> topic = topicService.findByName(skill.name());
 				if (topic.isEmpty()) {
 					if (skill.isTechnical()) {
@@ -200,5 +200,6 @@ public class DeveloperServiceImpl implements DeveloperService {
 	@Override
 	public List<DeveloperBriefView> findAllDevelopersByLastNameFirstNameTechnicalSkillAndLevel(String firstName,
 			String lastName) {
-		return repos.findAllProjectedByFirstNameIgnoreCaseAndLastNameIgnoreCase(firstName, lastName);·}
+		return repos.findAllProjectedByFirstNameIgnoreCaseAndLastNameIgnoreCase(firstName, lastName);
+	}
 }
