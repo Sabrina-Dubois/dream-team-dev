@@ -1,12 +1,14 @@
 {
-  "Profil": "Profile",
-  "Filters ": "Filters Management",
-  "Informations personnelles": "Personal Information",
-  "Description": "Description",
-  "Soft Skills": "Soft Skills",
-  "SOUMETTRE": "SUBIT",
-  "Compétences techniques": "Technical Skills",
-  "Choisir un fichier": "Choose a file",
-  "Aucun fichier choisi": "No file chosen",
-  "Level": "Level"
+	"Profil": "Profile",
+	"Informations personnelles": "Personal Information",
+	"Description": "Description",
+	"Soft Skills": "Soft Skills",
+	"SOUMETTRE": "SUBIT",
+	"Compétences techniques": "Technical Skills",
+	"Choisir un fichier": "Choose a file",
+	"Aucun fichier choisi": "No file chosen",
+	"Level": "Level",
+	"Search dev title": "Search developers",
+	"Search criteria title": "Search criteria",
+	"Search results title": "Developers list"
 }
