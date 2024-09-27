@@ -2,7 +2,14 @@ package co.simplon.dreamteam.developers.dtos.out;
 
 import java.util.Collection;
 
-public record DeveloperView(String internalNumber, String firstName, String lastName, String email, String description,
-	String picture, String linkedin, Collection<SkillsView> skills) {
+public record DeveloperView(
+        String internalNumber,
+        String firstName,
+        String lastName,
+        String email,
+        String description,
+        String picture,
+        String linkedin,
+        Collection<SkillsView> skills) {
 
 }
