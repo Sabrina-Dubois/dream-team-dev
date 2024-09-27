@@ -1,9 +1,10 @@
 <script>
-import DevProfileBrief from '@/components/DevProfileBrief.vue'
+import DeveloperItem from '@/components/DeveloperItem.vue';
+import DevProfileBrief from '@/components/DeveloperItem.vue'
 
 export default {
     components:{
-        DevProfileBrief
+        DeveloperItem
     },
     data() {
         return {
