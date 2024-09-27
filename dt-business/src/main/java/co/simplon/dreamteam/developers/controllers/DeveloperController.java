@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import co.simplon.dreamteam.developers.dtos.in.UpdateDeveloper;
 import co.simplon.dreamteam.developers.dtos.in.CreateOrAddSkill;
-import co.simplon.dreamteam.developers.dtos.out.DevProfileBriefView;
+import co.simplon.dreamteam.developers.dtos.out.DeveloperBriefView;
 import co.simplon.dreamteam.developers.dtos.out.DeveloperView;
 import co.simplon.dreamteam.developers.services.DeveloperService;
 
@@ -29,8 +29,8 @@ public class DeveloperController {
     }
 
     @GetMapping
-    public List<DevProfileBriefView> findAllDevProfiles() {
-	return service.findAllDevProfiles();
+    public List<DeveloperBriefView> findAllDeveloperBriefs() {
+	return service.findAllDeveloperBriefs();
     }
 
     @GetMapping("/{internalNumber}")
@@ -45,7 +45,7 @@ public class DeveloperController {
     }
 
     @GetMapping("/search")
-    public List<DevProfileBriefView> findAllDevelopersByLastNameFirstNameTechnicalSkillAndLevel(
+    public List<DeveloperBriefView> findAllDevelopersByLastNameFirstNameTechnicalSkillAndLevel(
 	    @RequestParam(required = false) String firstName, @RequestParam(required = false) String lastName) {
 	return service.findAllDevelopersByLastNameFirstNameTechnicalSkillAndLevel(firstName, lastName);
     }
