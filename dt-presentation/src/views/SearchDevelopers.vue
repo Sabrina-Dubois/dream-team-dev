@@ -1,9 +1,11 @@
 <script>
 import DevProfileBrief from '@/components/DevProfileBrief.vue'
+import SearchCriteria from '@/components/SearchCriteria.vue';
 
 export default {
     components:{
-        DevProfileBrief
+        DevProfileBrief,
+        SearchCriteria
     },
     data() {
         return {
@@ -32,6 +34,7 @@ export default {
     <main>
         <div class="container mt-5">
             <h1 class="text-center">{{ $t('Search dev title') }}</h1>
+            <SearchCriteria/>
             <section>
                 <h2>{{ $t('Search results title') }}</h2>
                 <div class="text-center w-75 mx-5">
