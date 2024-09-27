@@ -15,7 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import co.simplon.dreamteam.developers.dtos.in.UpdateDeveloper;
 import co.simplon.dreamteam.developers.dtos.in.CreateOrAddSkill;
-import co.simplon.dreamteam.developers.dtos.out.DevProfileBriefView;
+import co.simplon.dreamteam.developers.dtos.out.DeveloperBriefView;
 import co.simplon.dreamteam.developers.dtos.out.DeveloperView;
 import co.simplon.dreamteam.developers.dtos.out.SkillsView;
 import co.simplon.dreamteam.developers.entities.Developer;
@@ -46,7 +46,7 @@ public class DeveloperServiceImpl implements DeveloperService {
     }
 
     @Override
-    public List<DevProfileBriefView> findAllDevProfiles() {
+    public List<DeveloperBriefView> findAllDeveloperBriefs() {
 	return repos.findAllProjectedBy();
     }
 
@@ -198,7 +198,7 @@ public class DeveloperServiceImpl implements DeveloperService {
     }
 
     @Override
-    public List<DevProfileBriefView> findAllDevelopersByLastNameFirstNameTechnicalSkillAndLevel(String firstName,
+    public List<DeveloperBriefView> findAllDevelopersByLastNameFirstNameTechnicalSkillAndLevel(String firstName,
 	    String lastName) {
 	return repos.findAllProjectedByFirstNameIgnoreCaseAndLastNameIgnoreCase(firstName, lastName);
     }
