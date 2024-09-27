@@ -14,15 +14,15 @@ import jakarta.validation.Payload;
 @Constraint(validatedBy = FileSizeValidator.class)
 @Documented
 public @interface FileSize {
-    static final long ONE_MB = 1024 * 1024;
+	static final long ONE_MB = 1024 * 1024;
 
-    static final long TWO_MB = 2 * ONE_MB;
+	static final long TWO_MB = 2 * ONE_MB;
 
-    String message() default "Merci de ne pas attache un image moins 1MG";
+	String message() default "Merci d'envoyer une image de moins de 1MG";
 
-    long max() default ONE_MB;
+	long max() default ONE_MB;
 
-    Class<?>[] groups() default {};
+	Class<?>[] groups() default {};
 
-    Class<? extends Payload>[] payload() default {};
+	Class<? extends Payload>[] payload() default {};
 }
