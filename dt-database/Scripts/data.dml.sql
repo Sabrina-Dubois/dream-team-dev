@@ -16,7 +16,7 @@ INSERT INTO t_developers (internal_number, first_name, last_name, email, descrip
 	('a000003', 'Thao', 'NGUYEN', 'abdallah@sg.com', NULL, '4f1520e5-94a5-4c8c-9c69-e27630947ec2.jpg', NULL)
 	;
 
-INSERT INTO t_topics (skill_name, is_technical_skill ) VALUES 
+INSERT INTO t_topics (topic_name, is_technical_skill ) VALUES 
 	('Java', true),
 	('TeamWork', false);
 
