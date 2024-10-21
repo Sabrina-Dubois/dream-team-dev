@@ -1,50 +1,6 @@
-<template>
-  <label for="TechnicalSkills" class="form-label fs-5 mb-2 mt-4">{{ $t('Soft Skills') }}</label>
-  <div class="card bg-light">
-    <div class="card-body d-flex flex-column">
-      <div class="mb-2">
-				<span v-for="(skill, index) in selectedSkills" :key="index" class="badge bg-primary me-2">
-					{{ skill.name }}
-					<button
-              type="button"
-              class="btn-close btn-close-white btn-sm ms-2"
-              aria-label="Remove"
-              @click="removeSkill(index)"
-          ></button>
-				</span>
-      </div>
-
-      <!-- Select skills -->
-      <div class="input-group mb-3">
-        <input
-            v-model="newSkill"
-            class="form-control"
-            list="datalistSoftSkills"
-            autocomplete="off"
-            @keyup.enter="addSkill"
-        />
-        <datalist id="datalistSoftSkills">
-          <option
-              v-for="(skill, index) in availableSoftSkills"
-              :key="index"
-              :value="skill.name"
-          ></option>
-        </datalist>
-
-        <!-- Add new skill -->
-        <button
-            class="btn btn-outline-secondary ms-2 rounded-circle"
-            @click.prevent="addSkill"
-            style="border-radius: 50%"
-        >
-          +
-        </button>
-      </div>
-    </div>
-  </div>
-</template>
-
 <script>
+import axios from "axios";
+
 export default {
   name: 'SoftSkills',
   props: {
@@ -98,19 +54,63 @@ export default {
     },
     async getSoftSkills() {
       try {
-        const response = await fetch(
+        const response = await axios.get(
             `http://localhost:8080/topics/search?label=${this.newSkill}&isTechnical=false`
         )
-        this.availableSoftSkills = await response.json()
+        this.availableSoftSkills = await response.data
         console.log(this.availableSoftSkills)
-      } catch(error) {
+      } catch (error) {
         console.error('Erreur lors de la récupération des soft skills:', error)
       }
     },
   }
 }
 </script>
+<template>
+  <label for="TechnicalSkills" class="form-label fs-5 mb-2 mt-4">{{ $t('Soft Skills') }}</label>
+  <div class="card bg-light">
+    <div class="card-body d-flex flex-column">
+      <div class="mb-2">
+				<span v-for="(skill, index) in selectedSkills" :key="index" class="badge bg-primary me-2">
+					{{ skill.name }}
+					<button
+              type="button"
+              class="btn-close btn-close-white btn-sm ms-2"
+              aria-label="Remove"
+              @click="removeSkill(index)"
+          ></button>
+				</span>
+      </div>
 
+      <!-- Select skills -->
+      <div class="input-group mb-3">
+        <input
+            v-model="newSkill"
+            class="form-control"
+            list="datalistSoftSkills"
+            autocomplete="off"
+            @keyup.enter="addSkill"
+        />
+        <datalist id="datalistSoftSkills">
+          <option
+              v-for="(skill, index) in availableSoftSkills"
+              :key="index"
+              :value="skill.name"
+          ></option>
+        </datalist>
+
+        <!-- Add new skill -->
+        <button
+            class="btn btn-outline-secondary ms-2 rounded-circle"
+            @click.prevent="addSkill"
+            style="border-radius: 50%"
+        >
+          +
+        </button>
+      </div>
+    </div>
+  </div>
+</template>
 <style scoped>
 .badge {
   display: inline-flex;
