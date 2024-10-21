@@ -15,6 +15,11 @@ import java.util.Optional;
 
 @Repository
 public interface SkillRepository extends JpaRepository<Skill, Long> {
+    @Query("SELECT sp FROM Skill sp " +
+            "JOIN sp.developer d " +
+            "JOIN sp.topic t " +
+            "WHERE d.internalNumber = :internalNumber")
+    List<Skill> findAllByDeveloperInternalNumber(String internalNumber);
 
     Optional<Skill> findByDeveloperAndTopic(Developer entity, Topic addedTopic);
 
