@@ -1,3 +1,107 @@
+<script>
+import TechnicalSkills from '@/components/TechnicalSkills.vue'
+import SoftSkills from '@/components/SoftSkills.vue'
+
+export default {
+	name: 'ProfileView',
+	components: {
+		TechnicalSkills,
+		SoftSkills
+	},
+	data() {
+		return {
+			pictureProfil: null,
+			// users: [],
+			user: {
+				lastName: '',
+				firstName: '',
+				email: '',
+				internalNumber: 'abc1234',
+				description: '',
+				linkedin: ''
+			},
+			descriptionError: '',
+			technicalSkills: [],
+			softSkills: [],
+			userTechnicalSkills: [],
+			userSoftSkills: []
+		}
+	},
+	beforeMount() {
+		this.getProfile()
+	},
+	methods: {
+		async getProfile() {
+			try {
+				const response = await fetch(`http://localhost:8080/developers/${this.user.internalNumber}`)
+				const profile = await response.json()
+				this.user.firstName = profile.firstName
+				this.user.lastName = profile.lastName
+				this.user.email = profile.email
+				this.user.internalNumber = profile.internalNumber
+				this.user.description = profile.description
+				this.user.linkedin = profile.linkedin
+				const skills = profile.skills
+				this.userTechnicalSkills = skills.filter((skill) => skill.isTechnical === true)
+				this.userSoftSkills = skills.filter((skill) => skill.isTechnical === false)
+				console.log(this.userTechnicalSkills)
+				console.log(this.userSoftSkills)
+			} catch (error) {
+				console.log('Erreur lors de la récupération des données', error)
+			}
+		},
+		onFileChange(event) {
+			const file = event.target.files[0]
+			console.log(file)
+			if (file) {
+				this.picture = URL.createObjectURL(file)
+				this.user.picture = file
+			}
+		},
+		// Change description length > 5000 -> 5 is a test
+		validate() {
+			if (this.user.description.length > 5) {
+				this.descriptionError = 'La description ne peut pas dépasser 5000 caractères.'
+			} else {
+				this.descriptionError = ''
+			}
+		},
+		updateTechnicalSkills(skills) {
+			this.technicalSkills = skills 
+		},
+		updateSoftSkills(skills) {
+			this.softSkills = skills 
+		},
+		async update() {
+			const formData = new FormData()
+			formData.append('description', this.user.description)
+			formData.append('linkedin', this.user.linkedin)
+
+			if (this.user.picture instanceof File) {
+				formData.append('picture', this.user.picture)
+			}
+			const skillsBlob = new Blob([JSON.stringify(this.softSkills.concat(this.technicalSkills))], {
+				type: 'application/json'
+			})
+			formData.append(`skills`, skillsBlob)
+
+			try {
+				await fetch(
+					`http://localhost:8080/developers/${this.user.internalNumber}`,
+					{
+						method: 'PATCH',
+						body: formData
+					}
+				)
+				console.log('Profil mis à jour avec succès')
+			} catch (error) {
+				console.error('Erreur lors de la mise à jour du profil', error)
+			}
+		}
+	}
+}
+</script>
+
 <template>
 	<main>
 		<div class="container mt-5">
@@ -112,109 +216,6 @@
 	</main>
 </template>
 
-<script>
-import TechnicalSkills from '@/components/TechnicalSkills.vue'
-import SoftSkills from '@/components/SoftSkills.vue'
-
-export default {
-	name: 'ProfileView',
-	components: {
-		TechnicalSkills,
-		SoftSkills
-	},
-	data() {
-		return {
-			pictureProfil: null,
-			// users: [],
-			user: {
-				lastName: '',
-				firstName: '',
-				email: '',
-				internalNumber: 'abc1234',
-				description: '',
-				linkedin: ''
-			},
-			descriptionError: '',
-			technicalSkills: [],
-			softSkills: [],
-			userTechnicalSkills: [],
-			userSoftSkills: []
-		}
-	},
-	beforeMount() {
-		this.getProfile()
-	},
-	methods: {
-		async getProfile() {
-			try {
-				const response = await fetch(`http://localhost:8080/developers/${this.user.internalNumber}`)
-				const profile = await response.json()
-				this.user.firstName = profile.firstName
-				this.user.lastName = profile.lastName
-				this.user.email = profile.email
-				this.user.internalNumber = profile.internalNumber
-				this.user.description = profile.description
-				this.user.linkedin = profile.linkedin
-				const skills = profile.skills
-				this.userTechnicalSkills = skills.filter((skill) => skill.isTechnical === true)
-				this.userSoftSkills = skills.filter((skill) => skill.isTechnical === false)
-				console.log(this.userTechnicalSkills)
-				console.log(this.userSoftSkills)
-			} catch (error) {
-				console.log('Erreur lors de la récupération des données', error)
-			}
-		},
-		onFileChange(event) {
-			const file = event.target.files[0]
-			console.log(file)
-			if (file) {
-				this.picture = URL.createObjectURL(file)
-				this.user.picture = file
-			}
-		},
-		// Change description length > 5000 -> 5 is a test
-		validate() {
-			if (this.user.description.length > 5) {
-				this.descriptionError = 'La description ne peut pas dépasser 5000 caractères.'
-			} else {
-				this.descriptionError = ''
-			}
-		},
-		updateTechnicalSkills(skills) {
-			this.technicalSkills = skills 
-		},
-		updateSoftSkills(skills) {
-			this.softSkills = skills 
-		},
-		async update() {
-			const formData = new FormData()
-			formData.append('description', this.user.description)
-			formData.append('linkedin', this.user.linkedin)
-
-			if (this.user.picture instanceof File) {
-				formData.append('picture', this.user.picture)
-			}
-			const skillsBlob = new Blob([JSON.stringify(this.softSkills.concat(this.technicalSkills))], {
-				type: 'application/json'
-			})
-			formData.append(`skills`, skillsBlob)
-
-			try {
-				await fetch(
-					`http://localhost:8080/developers/${this.user.internalNumber}`,
-					{
-						method: 'PATCH',
-						body: formData
-					}
-				)
-				console.log('Profil mis à jour avec succès')
-			} catch (error) {
-				console.error('Erreur lors de la mise à jour du profil', error)
-			}
-		}
-	}
-}
-</script>
 
 <style scoped>
 .profile-picture-preview {
