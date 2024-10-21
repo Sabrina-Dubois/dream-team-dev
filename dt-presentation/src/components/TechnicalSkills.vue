@@ -29,7 +29,7 @@
           <option v-for="(level, index) in levels" :key="index">{{ $t(level.name) }}</option>
         </select>
         <!-- Add new skill -->
-        <button class="btn btn-outline-secondary ms-2 rounded-circle" @click="addSkill"
+        <button class="btn btn-outline-secondary ms-2 rounded-circle" @click.prevent="addSkill"
                 style="border-radius: 50%"> +
         </button>
       </div>
@@ -45,6 +45,13 @@ export default {
       required: true
     },
   },
+  watch: {
+    getTechnicalSkillsSelect(newVal, oldVal) {
+      this.getSkillUser()
+      console.log('New value:', newVal);
+      console.log('Old value:', oldVal);
+    }
+  },
   data() {
     return {
       selectedSkills: [],
@@ -52,10 +59,10 @@ export default {
       newLevel: '',
       levels: [],
       availableTechnicalSkills: [],
+
     }
   },
   mounted() {
-    this.getSkillUser()
     this.getLevels()
     this.getTechnicalSkills()
   },
@@ -89,6 +96,7 @@ export default {
       console.log(this.getTechnicalSkillsSelect);
       this.selectedSkills = [...this.getTechnicalSkillsSelect]
     },
+
 
     async getLevels() {
       try {

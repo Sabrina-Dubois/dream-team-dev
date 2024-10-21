@@ -37,7 +37,7 @@
         <!-- Add new skill -->
         <button
             class="btn btn-outline-secondary ms-2 rounded-circle"
-            @click="addSkill"
+            @click.prevent="addSkill"
             style="border-radius: 50%"
         >
           +
@@ -54,6 +54,13 @@ export default {
     getSoftSkillsSelect: {
       type: Array,
       required: true
+    }
+  },
+  watch: {
+    getSoftSkillsSelect(newVal, oldVal) {
+      this.getSkillUser()
+      console.log('New value:', newVal);
+      console.log('Old value:', oldVal);
     }
   },
   data() {
