@@ -1,7 +1,7 @@
 import {createRouter, createWebHistory} from "vue-router";
 import Profile from "../views/Profile.vue";
 import SearchDevelopers from "@/views/SearchDevelopers.vue";
-// import Filters from "../views/Filters.vue";
+import Filters from "../views/Filters.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -16,11 +16,11 @@ const router = createRouter({
             name: "Search developers",
             component: SearchDevelopers,
         },
-        // {
-        // 	path: "/filters",
-        // 	name: "Filters",
-        // 	component: Filters,
-        // },
+        {
+            path: "/filters",
+            name: "Filters",
+            component: Filters,
+        },
     ],
 });
 
