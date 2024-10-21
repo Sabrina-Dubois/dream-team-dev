@@ -1,9 +1,10 @@
 <template>
   <main>
     <div class="container mt-5">
-      <h2 class="text-center">{{ $t('') }}</h2>
+      <h2 class="text-center"></h2>
 
       <div class="card mt-4 bg-light p-4">
+       <form @submit.prevent="searchDevelopers">
         <div class="row align-items-center">
           <div class="col-sm-6 align-items-center">
             <label class="form-label mb-0 me-2">First name:</label>
@@ -37,6 +38,7 @@
         <div class="text-center mt-5">
           <button @click="submitFilters" class="btn btn-primary mt-3">Show results</button>
         </div>
+       </form>
       </div>
     </div>
   </main>
@@ -44,9 +46,34 @@
 
 <script>
 export default {
-  name: 'SearchCriteria',
-  data() {},
-  methods: {}
+  data() {
+    return {
+      firstName: '',
+      lastName: '',
+      technicalTopic: '',
+      level: '',
+      developers: []
+    };
+  },
+  methods: {
+    async searchDevelopers() {
+      const query = new URLSearchParams({
+        firstName: this.firstName,
+        lastName: this.lastName,
+        technicalTopic: this.technicalTopic,
+        level: this.level
+      }).toString();
+
+      try {
+        const response = await fetch(`http://localhost:8080/developers/search?${query}`);
+        this.developers = await response.json();
+        console.log(this.developers);
+        
+      } catch (error) {
+        console.error("Error fetching developers:", error);
+      }
+    }
+  }
 }
 </script>
 

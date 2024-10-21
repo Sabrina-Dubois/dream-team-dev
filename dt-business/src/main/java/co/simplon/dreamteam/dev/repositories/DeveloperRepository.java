@@ -23,7 +23,7 @@ public interface DeveloperRepository extends JpaRepository<Developer, Long> {
     	JOIN t_levels lev ON lev.id_level = sk.level_id
     	WHERE upper(first_name) LIKE upper(concat( '%', :firstName, '%'))
     	AND upper(last_name) LIKE upper(concat( '%', :lastName, '%'))
-    	AND upper(top.skill_name) LIKE upper(concat( '%', :technicalTopic, '%'))
+    	AND upper(top.topic_name) LIKE upper(concat( '%', :technicalTopic, '%'))
     	AND upper(lev.level_name) LIKE upper(concat( '%', :level, '%'));
     		    	""";
 
