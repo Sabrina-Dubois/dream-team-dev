@@ -14,15 +14,15 @@ import co.simplon.dreamteam.dev.services.FilterService;
 @RestController
 public class FilterController {
 
-	private final FilterService filterService;
+    private final FilterService filterService;
 
-	public FilterController(FilterService filterService) {
-		this.filterService = filterService;
-	}
+    public FilterController(FilterService filterService) {
+        this.filterService = filterService;
+    }
 
-	@PostMapping("/create")
-	public ResponseEntity<Void> createFilter(@RequestBody FilterView filterView) 
-		filterService.saveFilter(filterView);
-		return ResponseEntity.ok().build();
-	}
+    @PostMapping("/create")
+    public ResponseEntity<Void> createFilter(@RequestBody FilterView filterView) {
+        //filterService.saveFilter(filterView);
+        return ResponseEntity.ok().build();
+    }
 }

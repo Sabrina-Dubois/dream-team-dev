@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
@@ -20,7 +19,6 @@ import co.simplon.dreamteam.dev.dtos.out.DeveloperItemView;
 import co.simplon.dreamteam.dev.dtos.out.DeveloperView;
 import co.simplon.dreamteam.dev.dtos.out.SkillsView;
 import co.simplon.dreamteam.dev.entities.Developer;
-import co.simplon.dreamteam.dev.entities.Level;
 import co.simplon.dreamteam.dev.entities.Skill;
 import co.simplon.dreamteam.dev.entities.Topic;
 import co.simplon.dreamteam.dev.repositories.DeveloperRepository;
@@ -47,13 +45,8 @@ public class DeveloperServiceImpl implements DeveloperService {
     }
 
     @Override
-<<<<<<< HEAD:dt-business/src/main/java/co/simplon/dreamteam/developers/services/DeveloperServiceImpl.java
-    public List<DevProfileBriefView> findAllDevProfiles() {
-        return repos.findAllProjectedBy();
-=======
     public List<DeveloperItemView> findAllDeveloperItems() {
-	return repos.findAllProjectedBy();
->>>>>>> 0115b2c63c965443f35321160de409cd400ec344:dt-business/src/main/java/co/simplon/dreamteam/dev/services/DeveloperServiceImpl.java
+        return repos.findAllProjectedBy();
     }
 
     @Override
@@ -115,16 +108,12 @@ public class DeveloperServiceImpl implements DeveloperService {
     }
 
     @Override
-<<<<<<< HEAD:dt-business/src/main/java/co/simplon/dreamteam/developers/services/DeveloperServiceImpl.java
-    public void updateDeveloper(String internalNumber, UpdateDeveloper developer, List<CreateOrAddSkill> skillsJson) {
+    public void updateDeveloper(String internalNumber, UpdateDeveloper developer, List<CreateSkill> skillsJson) {
         Developer entity = repos.findProjectedByInternalNumber(internalNumber);
         updateDeveloperDetails(entity, developer);
         handleImage(developer.picture(), entity);
-=======
-    public void updateDeveloper(String internalNumber, UpdateDeveloper developer, List<CreateSkill> skillsJson) {
->>>>>>> 0115b2c63c965443f35321160de409cd400ec344:dt-business/src/main/java/co/simplon/dreamteam/dev/services/DeveloperServiceImpl.java
 
-        boolean hasTechnicalSkills = skillsJson.stream().anyMatch(CreateOrAddSkill::isTechnical);
+        boolean hasTechnicalSkills = skillsJson.stream().anyMatch(CreateSkill::isTechnical);
         boolean hasSoftSkills = skillsJson.stream().anyMatch(skill -> !skill.isTechnical());
 
         // Remove existing skills based on the presence of technical or soft skills
@@ -137,11 +126,10 @@ public class DeveloperServiceImpl implements DeveloperService {
             skillRepo.deleteAllByDeveloperAndTechnical(entity, false);
         }
 
-<<<<<<< HEAD:dt-business/src/main/java/co/simplon/dreamteam/developers/services/DeveloperServiceImpl.java
         // Add new skills
         Set<Skill> newSkills = new HashSet<>();
         if (skillsJson != null) {
-            for (CreateOrAddSkill skill : skillsJson) {
+            for (CreateSkill skill : skillsJson) {
                 Topic topic = topicService.findByName(skill.name()).orElseGet(() -> createNewTopic(skill));
                 if (skill.isTechnical()) {
                     topic.setTechnical(true);
@@ -154,26 +142,6 @@ public class DeveloperServiceImpl implements DeveloperService {
         entity.setSkills(newSkills);
         repos.save(entity);
     }
-=======
-	Collection<CreateSkill> skillsDev = skillsJson;
-
-	if (skillsDev != null) {
-	    for (CreateSkill skill : skillsDev) {
-		Optional<Topic> topic = topicService.findByName(skill.name());
-		if (topic.isEmpty()) {
-		    if (skill.isTechnical()) {
-			Topic newTopic = new Topic();
-			newTopic.setName(skill.name());
-			newTopic.setTechnical(true);
-			Topic addedTopic = topicService.saveTopic(newTopic);
-			Skill newSkill = new Skill();
-			newSkill.setTopic(addedTopic);
-			newSkill.setDeveloper(entity);
-			Optional<Level> level = levelRepository.findOneOptionalByName(skill.levelName());
-			level.ifPresent(newSkill::setLevel);
-			newSkill = saveSkill(newSkill);
-			skillsAddDev.add(newSkill);
->>>>>>> 0115b2c63c965443f35321160de409cd400ec344:dt-business/src/main/java/co/simplon/dreamteam/dev/services/DeveloperServiceImpl.java
 
     private void updateDeveloperDetails(Developer entity, UpdateDeveloper developer) {
         entity.setDescription(developer.description());
@@ -188,7 +156,7 @@ public class DeveloperServiceImpl implements DeveloperService {
         }
     }
 
-    private Skill createNewSkill(Developer developer, Topic topic, CreateOrAddSkill skill) {
+    private Skill createNewSkill(Developer developer, Topic topic, CreateSkill skill) {
         Skill newSkill = new Skill();
         newSkill.setTopic(topic);
         newSkill.setDeveloper(developer);
@@ -204,7 +172,7 @@ public class DeveloperServiceImpl implements DeveloperService {
         return savedSkill;
     }
 
-    private Topic createNewTopic(CreateOrAddSkill skill) {
+    private Topic createNewTopic(CreateSkill skill) {
         Topic newTopic = new Topic();
         newTopic.setName(skill.name());
         newTopic.setTechnical(skill.isTechnical());
@@ -212,26 +180,20 @@ public class DeveloperServiceImpl implements DeveloperService {
     }
 
     @Override
-<<<<<<< HEAD:dt-business/src/main/java/co/simplon/dreamteam/developers/services/DeveloperServiceImpl.java
-    public List<DevProfileBriefView> findAllDevelopersByLastNameFirstNameTechnicalSkillAndLevel(String firstName,
-                                                                                                String lastName) {
-        return repos.findAllProjectedByFirstNameIgnoreCaseAndLastNameIgnoreCase(firstName, lastName);
-=======
     public List<DeveloperItemView> findAllDevelopersByLastNameFirstNameTechnicalSkillAndLevel(String firstName,
-	    String lastName, String technicalTopic, String level) {
-	List<Developer> devs = repos.findAllByFirstNameLastNameTehnicalSkillAndLevel(firstName, lastName,
-		technicalTopic, level);
-	return getDevProfileBriefViews(devs);
->>>>>>> 0115b2c63c965443f35321160de409cd400ec344:dt-business/src/main/java/co/simplon/dreamteam/dev/services/DeveloperServiceImpl.java
+                                                                                              String lastName, String technicalTopic, String level) {
+        List<Developer> devs = repos.findAllByFirstNameLastNameTehnicalSkillAndLevel(firstName, lastName,
+                technicalTopic, level);
+        return getDevProfileBriefViews(devs);
     }
 
     private List<DeveloperItemView> getDevProfileBriefViews(List<Developer> devs) {
-	List<DeveloperItemView> devsList = new ArrayList<DeveloperItemView>();
-	devs.forEach(dev -> devsList.add(getDevProfileBriefView(dev)));
-	return devsList;
+        List<DeveloperItemView> devsList = new ArrayList<DeveloperItemView>();
+        devs.forEach(dev -> devsList.add(getDevProfileBriefView(dev)));
+        return devsList;
     }
 
     private static DeveloperItemView getDevProfileBriefView(Developer dev) {
-	return new DeveloperItemView(dev.getFirstName(), dev.getLastName(), dev.getEmail(), dev.getPicture());
+        return new DeveloperItemView(dev.getFirstName(), dev.getLastName(), dev.getEmail(), dev.getPicture());
     }
 }
