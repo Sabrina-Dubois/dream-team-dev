@@ -29,9 +29,6 @@
               :key="index"
               :value="skill.name"
           ></option>
-          <!-- <option value="TRAVAIL EN EQUIPE"></option>
-              <option value="CURIEUX"></option>
-              <option value="PATIENT"></option> -->
         </datalist>
 
         <!-- Add new skill -->
@@ -97,7 +94,7 @@ export default {
       this.emitSkills()
     },
     emitSkills() {
-      this.$emit('update-soft-skills', this.selectedSkills) // Emit the selected skills to the parent
+      this.$emit('update-soft-skills', this.selectedSkills)
     },
     async getSoftSkills() {
       try {
@@ -106,7 +103,7 @@ export default {
         )
         this.availableSoftSkills = await response.json()
         console.log(this.availableSoftSkills)
-      } catch {
+      } catch(error) {
         console.error('Erreur lors de la récupération des soft skills:', error)
       }
     },
