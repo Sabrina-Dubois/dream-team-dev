@@ -1,23 +1,22 @@
 <template>
-	<Header />
-	<RouterView />
+  <Header/>
+  <RouterView/>
 
 
 </template>
 
 <script>
-import { RouterView } from 'vue-router'
+import {RouterView} from 'vue-router'
 import Header from './components/Header.vue'
 
 export default {
-	name: 'App',
-	components: {
-		Header
-	}
+  name: 'App',
+  components: {
+    Header
+  }
 }
 </script>
-
-<style >
+<style>
 </style>
 
 

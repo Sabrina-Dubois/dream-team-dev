@@ -81,3 +81,5 @@ target/
 
 **/*.tsbuildinfo
 **/application.properties
+
+**/analyse.sql
