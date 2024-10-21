@@ -1,10 +1,11 @@
 <script>
 import DeveloperItem from '@/components/DeveloperItem.vue';
-import DevProfileBrief from '@/components/DeveloperItem.vue'
+import SearchCriteria from '@/components/SearchCriteria.vue';
 
 export default {
     components:{
-        DeveloperItem
+        DeveloperItem,
+        SearchCriteria
     },
     data() {
         return {
@@ -33,10 +34,11 @@ export default {
     <main>
         <div class="container mt-5">
             <h1 class="text-center">{{ $t('Search dev title') }}</h1>
+            <SearchCriteria/>
             <section>
                 <h2>{{ $t('Search results title') }}</h2>
                 <div class="text-center w-75 mx-5">
-                    <DevProfileBrief v-for="developer in Developers" :developer="developer" />
+                    <DeveloperItem v-for="developer in Developers" :developer="developer" />
                 </div>
             </section>
         </div>
