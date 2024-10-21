@@ -199,6 +199,7 @@ export default {
             </div>
           </div>
           
+
           <!-- Technical Skills -->
           <TechnicalSkills
               @update-skills="updateTechnicalSkills"
