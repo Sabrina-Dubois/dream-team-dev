@@ -30,8 +30,9 @@ export default {
         }).toString()
         try {
           const response = await axios.get(`http://localhost:8080/developers/search?${query}`)
-          this.developers = await response.data
-          console.log(this.developers)
+          //this.developers = await response.data
+          //console.log(this.developers)
+          this.$emit('update-developers', response.data)
         } catch (error) {
           console.error('Error fetching developers:', error)
         }
