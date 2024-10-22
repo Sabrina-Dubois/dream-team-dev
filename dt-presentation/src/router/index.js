@@ -1,26 +1,22 @@
 import { createRouter, createWebHistory } from "vue-router";
 
-import Profile from "../views/Profile.vue";
-import SearchDevelopers from "@/views/SearchDevelopers.vue";
-import Filters from "../views/Filters.vue";
-
 const router = createRouter({
 	history: createWebHistory(import.meta.env.BASE_URL),
 	routes: [
 		{
 			path: "/",
 			name: "Profile",
-			component: Profile,
+			component: () => import("../views/Profile.vue"),
 		},
 		{
 			path: "/search",
 			name: "Search developers",
-			component: SearchDevelopers,
+			component: () => import("../views/SearchDevelopers.vue"),
 		},
 		{
 			path: "/filters",
 			name: "Filters",
-			component: Filters,
+			component: () => import("../views/Filters.vue"),
 		},
 	],
 });
