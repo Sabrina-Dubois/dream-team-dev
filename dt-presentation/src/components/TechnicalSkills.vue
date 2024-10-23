@@ -87,9 +87,9 @@ export default {
 }
 </script>
 <template>
-	<label for="TechnicalSkills" class="form-label fs-5 mb-2 mt-4">{{
+	<!--<label for="TechnicalSkills" class="form-label fs-5 mb-2 mt-4">{{
 		$t('Compétences Techniques')
-	}}</label>
+	}}</label>-->
 	<div class="card bg-light">
 		<div class="card-body d-flex flex-column">
 			<div class="mb-2">
@@ -117,9 +117,6 @@ export default {
 						:key="index"
 						:value="skill.name"
 					></option>
-					<!-- <option value="JAVA"></option>
-          <option value="JS"></option>
-          <option value="PYTHON"></option> -->
 				</datalist>
 				<select v-model="newLevel" class="form-select col-3" aria-label="Select level">
 					<option selected>Level</option>
