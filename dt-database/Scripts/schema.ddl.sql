@@ -53,4 +53,5 @@ second_topic VARCHAR(100),
 CONSTRAINT t_filters_pkey PRIMARY KEY (id_filter),
 CONSTRAINT t_filters_first_topic_second_topic_keyword_ukey UNIQUE (first_topic, second_topic,keyword)
 );
+SELECT FROM * t_filters;
 

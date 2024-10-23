@@ -10,15 +10,24 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "t_filters")
 public class Filter {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="id_filter")
+	@Column(name = "id_filter")
 	private long id;
-	
-	@Column(name="filter_name", nullable = false)
+
+	@Column(name = "filter_name", nullable = false)
 	private String name;
-	
+
+	@Column(name = "keyword")
+	private String keyword;
+
+	@Column(name = "first_topic")
+	private String firstTopic;
+
+	@Column(name = "second_topic")
+	private String secondTopic;
+
 	public long getId() {
 		return id;
 	}
@@ -59,14 +68,12 @@ public class Filter {
 		this.secondTopic = secondTopic;
 	}
 
-	@Column(name="keyword")
-	private String keyword;
-	
-	@Column(name="first_topic")
-	private String firstTopic;
-	
-	@Column(name="second_topic")
-	private String secondTopic;
-	
+	public void setDeveloperId(Object developerId) {
+		// TODO Auto-generated method stub
+
+	}
+
+	// public void setDeveloperId(long developerId) {
+	// }
 
 }
