@@ -10,5 +10,19 @@
 	"Level": "Niveau",
 	"Search dev title": "Rechercher des développeurs",
 	"Search criteria title": "Critères de Rechercher",
-	"Search results title": "List Developers"
+	"Search results title": "List Developers",
+	"validations": {
+		"firstName": {
+			"required": "First name est requis",
+			"maxLength": "La longueur Maximum est de 100 caractères"
+		},
+		"lastName": {
+			"required": "First name est requis",
+			"maxLength": "La longueur Maximum est de 100 caractères"
+		},
+		"technicalTopic": {
+			"required": "First name est requis",
+			"maxLength": "La longueur Maximum est de 100 caractères"
+		}
+	}
 }

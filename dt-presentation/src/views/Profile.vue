@@ -1,6 +1,7 @@
 <script>
 import TechnicalSkills from '@/components/TechnicalSkills.vue'
 import SoftSkills from '@/components/SoftSkills.vue'
+import axios from 'axios';
 
 export default {
   name: 'ProfileView',
@@ -34,8 +35,8 @@ export default {
   methods: {
     async getProfile() {
       try {
-        const response = await fetch(`http://localhost:8080/developers/${this.user.internalNumber}`)
-        const profile = await response.json()
+        const response = await axios.get(`http://localhost:8080/developers/${this.user.internalNumber}`);
+        const profile = response.data;
         this.user.firstName = profile.firstName
         this.user.lastName = profile.lastName
         this.user.email = profile.email
@@ -89,13 +90,10 @@ export default {
       formData.append(`skills`, skillsBlob)
 
       try {
-        const response = await fetch(
+        const response = await axios.patch(
             `http://localhost:8080/developers/${this.user.internalNumber}`,
-            {
-              method: 'PATCH',
-              body: formData
-            }
-        )
+            formData
+        );
         // const data = await response.json()
         console.log('Profil mis à jour avec succès')
       } catch (error) {
@@ -198,7 +196,7 @@ export default {
               ></textarea>
             </div>
           </div>
-          
+
 
           <!-- Technical Skills -->
           <TechnicalSkills

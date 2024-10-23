@@ -3,15 +3,36 @@ package co.simplon.dreamteam.dev.services;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.stereotype.Service;
+
 import co.simplon.dreamteam.dev.dtos.out.TopicView;
 import co.simplon.dreamteam.dev.entities.Topic;
+import co.simplon.dreamteam.dev.repositories.TopicRepository;
+import jakarta.transaction.Transactional;
 
-public interface TopicService {
-    List<TopicView> findTopicTechnicalsByNameStartingWith(String name);
+@Service
+public class TopicService {
+	private TopicRepository repo;
 
-    List<TopicView> findTopicBusinessAndSoftsByNameStartingWith(String name);
+	public TopicService(TopicRepository repo) {
+		this.repo = repo;
+	}
 
-    Optional<Topic> findByName(String name);
+	public List<TopicView> findTopicTechnicalsByNameStartingWith(String name) {
+		return repo.findProjectedByNameIgnoreCaseStartingWithAndIsTechnical(name, true);
+	}
 
-    Topic saveTopic(Topic topic);
+	public List<TopicView> findTopicBusinessAndSoftsByNameStartingWith(String name) {
+		return repo.findProjectedByNameIgnoreCaseStartingWithAndIsTechnical(name, false);
+	}
+
+	public Optional<Topic> findByName(String name) {
+		return repo.findByName(name);
+	}
+
+	@Transactional
+	public Topic saveTopic(Topic topic) {
+		return repo.save(topic);
+	}
+
 }
