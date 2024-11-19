@@ -15,33 +15,33 @@ public class Topic {
     @Column(name = "id_topic")
     private Long id;
 
-    @Column(name = "skill_name")
+    @Column(name = "topic_name")
     private String name;
 
     @Column(name = "is_technical_skill")
     private boolean isTechnical;
 
     public boolean isTechnical() {
-        return isTechnical;
+	return isTechnical;
     }
 
     public void setTechnical(boolean technical) {
-        isTechnical = technical;
+	isTechnical = technical;
     }
 
     public Long getId() {
-        return id;
+	return id;
     }
 
     public void setId(Long id) {
-        this.id = id;
+	this.id = id;
     }
 
     public String getName() {
-        return name;
+	return name;
     }
 
     public void setName(String name) {
-        this.name = name;
+	this.name = name;
     }
 }

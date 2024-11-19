@@ -1,3 +1,67 @@
+<script>
+import axios from "axios";
+
+export default {
+  name: 'FiltersView',
+  data() {
+    return {
+      filters: [
+        {
+          name: '',
+          skills: ['', ''],
+          keyword: ''
+        }
+      ],
+      skillsList: ['Skill1', 'Skill2', 'Skill3']
+    }
+  },
+  methods: {
+    add() {
+      if (this.filters.length < 5) {
+        this.filters.push({
+          name: '',
+          skills: ['', ''],
+          keyword: ''
+        })
+      }
+    },
+
+    async submit() {
+      try {
+        for (const filter of this.filters) {
+          const response = await axios.post('http://localhost:8080/filters/create',
+              {
+                name: filter.name,
+                firstSkill: filter.skills[0],
+                secondSkill: filter.skills[1],
+                keyword: filter.keyword
+              })
+
+          if (!response.ok) {
+            throw new Error('Failed to save the filter');
+          }
+
+          const data = await response.json()
+          console.log('Filter saved successfully:', data)
+        }
+        this.resetFilters();
+      } catch (error) {
+        console.error('Error saving filters:', error);
+      }
+    },
+
+    resetFilters() {
+      this.filters = [
+        {
+          name: '',
+          skills: ['', ''],
+          keyword: ''
+        }
+      ]
+    }
+  }
+};
+</script>
 <template>
   <main>
     <div class="container mt-5">
@@ -56,74 +120,5 @@
     </div>
   </main>
 </template>
-
-<script>
-export default {
-  name: 'FiltersView',
-  data() {
-    return {
-      filters: [
-        {
-          name: '',
-          skills: ['', ''],
-          keyword: ''
-        }
-      ],
-      skillsList: ['Skill1', 'Skill2', 'Skill3']
-    }
-  },
-  methods: {
-    add() {
-      if (this.filters.length < 5) {
-        this.filters.push({
-          name: '',
-          skills: ['', ''],
-          keyword: ''
-        })
-      }
-    },
-
-    async submit() {
-      try {
-        for (const filter of this.filters) {
-          const response = await fetch('http://localhost:8080/filters/create', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              name: filter.name,
-              firstSkill: filter.skills[0],
-              secondSkill: filter.skills[1],
-              keyword: filter.keyword
-            })
-          })
-
-          if (!response.ok) {
-            throw new Error('Failed to save the filter');
-          }
-
-          const data = await response.json()
-          console.log('Filter saved successfully:', data)
-        }
-        this.resetFilters();
-      } catch (error) {
-        console.error('Error saving filters:', error);
-      }
-    },
-
-    resetFilters() {
-      this.filters = [
-        {
-          name: '',
-          skills: ['', ''],
-          keyword: ''
-        }
-      ]
-    }
-  }
-};
-</script>
-
 <style scoped>
 </style>

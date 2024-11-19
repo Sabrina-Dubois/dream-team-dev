@@ -7,6 +7,12 @@ import co.simplon.dreamteam.dev.entities.Filter;
 
 @Repository
 public interface FilterRepository extends JpaRepository<Filter, Long> {
-	//FilterView findProjectedByNameAndKeywordAndFirstSkillAndSecondSkill();
-	
+
+	boolean existsByKeywordAndFirstTopicAndSecondTopicAndIdNot(String keyword, String firstTopic, String secondTopic,
+			Long id);
+
+	boolean existsByNameAndFirstTopicAndSecondTopicAndKeyword(String name, String firstTopic, String secondTopic,
+			String keyword);
+
+	// long countDeveloperId(long developerId);
 }
